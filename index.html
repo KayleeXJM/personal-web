@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Kaylee — ML researcher at CMU Auton Lab, building agentic AI for healthcare. Previously TikTok, RedNote, TCL. Incoming Pinterest MLE." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Kaylee Xu — Machine Learning Researcher" />
+  <meta property="og:description" content="ML researcher at CMU Auton Lab working on agentic AI for healthcare, with industry experience at TikTok, RedNote, TCL, and Pinterest." />
+  <meta property="og:image" content="assets/headshot.jpg" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Kaylee Xu — Machine Learning Researcher" />
+  <meta name="twitter:description" content="ML researcher at CMU Auton Lab working on agentic AI for healthcare." />
+  <link rel="canonical" href="index.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23FAF8F5'/%3E%3Ctext x='50%25' y='56%25' text-anchor='middle' font-size='30' font-family='serif' fill='%2349866b'%3EK%3C/text%3E%3C/svg%3E" />
+  <title>Kaylee Xu — Machine Learning Researcher</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet" />
+
+  <!-- Apply saved theme before paint to avoid flash -->
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', t);
+    }());
+  </script>
+  <link rel="stylesheet" href="style.css?v=purple-glass-20260607-2" />
+</head>
+<body>
+
+<!-- ============================================================
+     NAVIGATION
+     ============================================================ -->
+<nav id="nav">
+  <a href="#about" class="nav-logo">Jiaming (Kaylee) Xu</a> 
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#blogs">Blogs</a></li>
+    <li><a href="#life">Life</a></li>
+  </ul>
+  <button class="nav-theme-btn" id="themeToggle" aria-label="Toggle colour theme">
+    <!-- Sun: shown in dark mode → click to go light -->
+    <svg class="theme-icon theme-icon--sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="4.5"/>
+      <line x1="12" y1="2"   x2="12" y2="5"/>
+      <line x1="12" y1="19"  x2="12" y2="22"/>
+      <line x1="4.22" y1="4.22"   x2="6.34" y2="6.34"/>
+      <line x1="17.66" y1="17.66" x2="19.78" y2="19.78"/>
+      <line x1="2"  y1="12"  x2="5"  y2="12"/>
+      <line x1="19" y1="12"  x2="22" y2="12"/>
+      <line x1="4.22" y1="19.78"  x2="6.34" y2="17.66"/>
+      <line x1="17.66" y1="6.34"  x2="19.78" y2="4.22"/>
+    </svg>
+    <!-- Moon: shown in light mode → click to go dark -->
+    <svg class="theme-icon theme-icon--moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+    </svg>
+  </button>
+  <button class="nav-menu-btn" id="navMenuBtn" aria-label="Open menu">&#9776;</button>
+</nav>
+
+<!-- Mobile nav drawer -->
+<div class="nav-drawer" id="navDrawer">
+  <button class="drawer-close" id="drawerClose" aria-label="Close menu">&#215;</button>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#blogs">Blogs</a></li>
+    <li><a href="#life">Life</a></li>
+  </ul>
+</div>
+<div class="nav-overlay" id="navOverlay"></div>
+
+
+<!-- ============================================================
+     HERO / ABOUT
+     Photo: place your image at assets/hero.jpg (natural, non-headshot)
+     ============================================================ -->
+<section id="about" class="hero">
+  <div class="hero-content">
+    <div class="hero-text">
+      <p class="hero-eyebrow">Hello, I'm 徐佳茗</p>
+      <h1 class="hero-name">Kaylee Xu</h1>
+      <p class="hero-statement">
+        I'm currently an M.S. student in Machine Learning at <span class="org">Carnegie Mellon University</span>, graduating in December 2026. Before CMU, I studied Data Science and Finance at <span class="org">NYU Shanghai</span>, where I developed a strong foundation in machine learning, statistics, and software engineering.
+      </p>
+      <p class="hero-statement">
+        Over the past few years, I've worked on AI systems at <span class="org">Pinterest</span>, <span class="org">TikTok</span>, and <span class="org">TCL Technology</span>, spanning recommendation systems, multimodal learning, and large language models. These experiences have shaped my interests in user modeling, personalization, sequential behavior modeling, and LLM-powered AI systems. More broadly, I'm interested in building AI that better understands humans &mdash; not only what people say or do, but how their preferences, intentions, and goals evolve over time.
+      </p>
+      <p class="hero-statement">
+        I&rsquo;m currently seeking full-time MLE roles starting January 2027. Whether you&rsquo;re hiring or just want to talk about ML &mdash; I&rsquo;m always happy to&nbsp;connect.
+      </p>
+    </div>
+
+    <div class="hero-photo">
+      <img src="assets/headshot.jpg" alt="Kaylee Xu" width="400" height="533" decoding="async" fetchpriority="high" />
+      <div class="hero-socials">
+        <a href="https://www.linkedin.com/in/jiaming-kaylee-xu/" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+            <rect x="2" y="9" width="4" height="12"/>
+            <circle cx="4" cy="4" r="2"/>
+          </svg>
+        </a>
+        <a href="https://github.com/KayleeXJM" target="_blank" rel="noopener" aria-label="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+          </svg>
+        </a>
+        <a href="mailto:kayleex@cs.cmu.edu" aria-label="Email">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,13 2,6"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-scroll-hint" aria-hidden="true">
+    <span>scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     MY PATH — Timeline
+     Toggle: Resume ↔ Reflections  ·  Pull-quote always visible
+     ============================================================ -->
+<section id="experience" class="section" data-expmode="resume">
+  <div class="container">
+
+    <div class="section-label fade-in">
+      <span class="section-num">01</span>
+      <h2 class="section-title">My Path</h2>
+    </div>
+
+    <!-- Timeline grid: edu left · spine center · jobs right -->
+    <div class="exp-timeline fade-in">
+
+      <!-- ── Row 1: Column headers ────────────────────────────── -->
+      <div class="tl-col-head" style="grid-column:1; grid-row:1">
+        <span class="tl-col-label">Education</span>
+      </div>
+      <div aria-hidden="true" style="grid-column:2; grid-row:1"></div>
+      <div class="tl-col-head" style="grid-column:3; grid-row:1">
+        <span class="tl-col-label">Internships</span>
+      </div>
+
+      <!-- Spine: rows 2–10 -->
+      <div class="tl-spine-line" aria-hidden="true"
+           style="grid-column:2; grid-row:2/span 9"></div>
+
+      <!-- ── ERA 1: NYU Shanghai (2021–2025) ──────────────────── -->
+
+      <!-- Edu card: rows 2–8 — spans through era gap, card is sticky during NYU era -->
+      <div class="tl-edu-cell tl-edu-cell--sticky" style="grid-column:1; grid-row:2/span 7; padding-bottom:0">
+        <div class="tl-edu-card">
+          <span class="tl-edu-period">Aug 2021 &mdash; May 2025</span>
+          <h4 class="tl-edu-degree">Bachelor of Science in Data Science&amp;Finance</h4>
+          <p class="tl-edu-school">NYU Shanghai</p>
+          <span class="tl-edu-note">Summa Cum Laude &middot; Double major</span>
+          <p class="tl-edu-detail">Explored IMA alongside technical curriculum; year at NYU New York.</p>
+        </div>
+      </div>
+
+      <!-- Row 2 · 2021 dot only -->
+      <div class="tl-dot-cell" style="grid-column:2; grid-row:2">
+        <span class="tl-year">2021</span>
+        <div class="tl-dot"></div>
+      </div>
+
+      <!-- Row 3 · 2021 exploration text (between 2021 and 2023) -->
+      <div class="tl-plain-cell" style="grid-column:3; grid-row:3">
+        <p class="tl-plain-text">Explored the job landscape before finding my direction &mdash; tried <span class="tl-plain-dim">business consulting</span>, <span class="tl-hl">data analysis</span>, <span class="tl-plain-dim">equity research</span>, <span class="tl-plain-dim">social media creation</span>, and roles that didn&rsquo;t fit in a category. Looking for what actually clicked.</p>
+      </div>
+
+      <!-- Row 4 · 2023 dot + turning point text (same row) -->
+      <div class="tl-dot-cell" style="grid-column:2; grid-row:4">
+        <span class="tl-year">2023</span>
+        <div class="tl-dot"></div>
+      </div>
+      <div class="tl-plain-cell" style="grid-column:3; grid-row:4">
+        <p class="tl-plain-text"><span class="tl-turning-point">[Turning Point]</span> Interned as tech consultant at RedNote &mdash; the first time I saw what <span class="tl-hl">AI</span> could do inside a real product.</p>
+      </div>
+
+      <!-- Row 5 · 2024 dot + toggle right above cards (col 3, anchored to bottom) -->
+      <div class="tl-dot-cell" style="grid-column:2; grid-row:5">
+        <span class="tl-year">2024</span>
+        <div class="tl-dot"></div>
+      </div>
+      <div style="grid-column:3; grid-row:5; display:flex; align-items:flex-start; padding-top:22px">
+        <div class="tl-toggle-row">
+          <div class="exp-v2-toggle" id="expV2Toggle">
+            <div class="exp-v2-toggle-track" id="expV2Track"></div>
+            <button class="exp-v2-btn active" data-mode="resume">Resume</button>
+            <button class="exp-v2-btn" data-mode="story">Beyond the Resume</button>
+          </div>
+          <p class="tl-toggle-invite">Flip to <em>Beyond the Resume</em> to see what each role actually taught me.</p>
+        </div>
+      </div>
+
+      <!-- Row 6 · TCL — no dot -->
+      <div class="tl-job-cell" style="grid-column:3; grid-row:6">
+        <div class="exp-v2-card">
+          <div class="exp-body">
+            <div class="tl-card-header">
+              <div class="tl-card-title">
+                <h4 class="exp-role">Applied AI Intern</h4>
+                <p class="exp-org">TCL Technology Group</p>
+              </div>
+              <span class="tl-card-date">May 2024 &mdash; Aug 2024</span>
+            </div>
+            <p class="exp-v2-quote">&ldquo;Every intelligent system begins by understanding what people actually mean &mdash; not just what they say.&rdquo;</p>
+            <div class="exp-v2-pane-wrap">
+              <div class="exp-v2-pane exp-v2-resume">
+                <p class="exp-desc">Built an end-to-end LLM-powered speech understanding system for smart home devices, from model selection and fine-tuning to production deployment. Evaluated LLaMA&nbsp;3-8B, Qwen-7B, and ChatGLM-6B; augmented training data 5&times; via semantic perturbation, achieving 99%+ accuracy with 20% cost reduction. The system shipped in commercial products in December 2024.</p>
+                <div class="exp-tags"><span>LLM Fine-tuning</span><span>Multi-intent Parsing</span><span>Production Deployment</span><span>Speech Control</span></div>
+              </div>
+              <div class="exp-v2-pane exp-v2-story">
+                <p class="exp-desc">This was the first time I realized AI wasn&rsquo;t just predicting labels &mdash; it was interpreting people. A user&rsquo;s sentence was rarely a single intent; it reflected goals, constraints, and context hidden beneath natural language. Building a production system taught me that understanding humans isn&rsquo;t only about better models. It&rsquo;s about designing systems that can reliably convert messy human intentions into decisions machines can execute.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 7 · TikTok — no dot -->
+      <div class="tl-job-cell" style="grid-column:3; grid-row:7">
+        <div class="exp-v2-card">
+          <div class="exp-body">
+            <div class="tl-card-header">
+              <div class="tl-card-title">
+                <h4 class="exp-role">Machine Learning Engineer Intern</h4>
+                <p class="exp-org">TikTok</p>
+              </div>
+              <span class="tl-card-date">Aug 2024 &mdash; Nov 2024</span>
+            </div>
+            <p class="exp-v2-quote">&ldquo;To understand people, AI must first understand the world they choose to share.&rdquo;</p>
+            <div class="exp-v2-pane-wrap">
+              <div class="exp-v2-pane exp-v2-resume">
+                <p class="exp-desc">Improved open-world multimodal content understanding for large-scale video recommendation by fine-tuning vision-language models to recognize unseen concepts and long-tail entities. Worked on helping recommendation systems better understand visual content beyond predefined labels.</p>
+                <div class="exp-tags"><span>Vision-Language Models</span><span>LoRA / Delta-LoRA</span><span>Open-world Perception</span><span>Recommender Systems</span></div>
+              </div>
+              <div class="exp-v2-pane exp-v2-story">
+                <p class="exp-desc">At TikTok, I encountered another side of human understanding. People don&rsquo;t always communicate through language &mdash; they communicate through images, videos, aesthetics, and subtle context. Open-world perception forced me to think beyond classification. Instead of asking &ldquo;What object is this?&rdquo;, I started asking &ldquo;What experience is this content trying to convey to someone?&rdquo;</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 8 · era gap — NYU edu card spans through here -->
+      <div class="tl-era-gap" aria-hidden="true"
+           style="grid-column:1/-1; grid-row:8"></div>
+
+      <!-- ── ERA 2: CMU (2025–2026) ───────────────────────────── -->
+
+      <!-- Row 9 · 2025 pivot dot + transition text -->
+      <div class="tl-dot-cell" style="grid-column:2; grid-row:9">
+        <span class="tl-year">2025</span>
+        <div class="tl-dot"></div>
+      </div>
+      <div class="tl-plain-cell" style="grid-column:1; grid-row:9; padding-right:20px">
+        <p class="tl-plain-text">Graduated from NYU! Joined CMU MSML :-D</p>
+      </div>
+
+      <!-- CMU edu card: row 10 only, starts below the 2025 pivot dot -->
+      <div class="tl-edu-cell" style="grid-column:1; grid-row:10/span 1; align-items:stretch; padding-bottom:0">
+        <div class="tl-edu-card">
+          <span class="tl-edu-period">Aug 2025 &mdash; Dec 2026</span>
+          <h4 class="tl-edu-degree">Master of Science in Machine Learning</h4>
+          <p class="tl-edu-school">Carnegie Mellon University</p>
+          <span class="tl-edu-note">School of Computer Science</span>
+          <p class="tl-edu-detail">PhD-level ML, Deep Learning, PGMs, Computer Vision, Optimization.</p>
+        </div>
+      </div>
+
+      <!-- Row 10 · 2026 dot + Pinterest -->
+      <div class="tl-dot-cell" style="grid-column:2; grid-row:10">
+        <span class="tl-year">2026</span>
+        <div class="tl-dot"></div>
+      </div>
+      <div class="tl-job-cell" style="grid-column:3; grid-row:10">
+        <div class="exp-v2-card">
+          <div class="exp-body">
+            <div class="tl-card-header">
+              <div class="tl-card-title">
+                <h4 class="exp-role">Machine Learning Engineer Intern</h4>
+                <p class="exp-org">Pinterest</p>
+              </div>
+              <span class="tl-card-date">May 2026 &mdash; Aug 2026</span>
+            </div>
+            <p class="exp-v2-quote">&ldquo;People aren&rsquo;t static profiles &mdash; they&rsquo;re evolving stories. AI should learn those stories, not just today&rsquo;s clicks.&rdquo;</p>
+            <div class="exp-v2-pane-wrap">
+              <div class="exp-v2-pane exp-v2-resume">
+                <p class="exp-desc">Developed LLM-based user journey understanding and optimized large-scale notification ranking models through sequential behavior modeling and multi-objective learning. Focused on modeling evolving user interests and delivering more personalized interactions over time.</p>
+                <div class="exp-tags"><span>Sequential Behavior Modeling</span><span>Multi-objective Learning</span><span>LLM Fine-tuning</span><span>Notification Ranking</span></div>
+              </div>
+              <div class="exp-v2-pane exp-v2-story">
+                <p class="exp-desc">Pinterest fundamentally changed how I think about personalization. A single click says very little about a person; hundreds of actions over weeks begin to reveal evolving interests, changing intentions, and future needs. I became increasingly fascinated not by predicting the next action, but by modeling how people change over time. Recommendation stopped feeling like ranking &mdash; it became a problem of understanding human behavior.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /exp-timeline -->
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     PROJECTS
+     Add demo links by uncommenting the anchor tags.
+     ============================================================ -->
+<section id="projects" class="section section-tinted">
+  <div class="container">
+    <div class="section-label fade-in">
+      <span class="section-num">02</span>
+      <h2 class="section-title">Projects</h2>
+    </div>
+
+    <div class="projects-grid">
+
+      <div class="project-card project-card-muted fade-in">
+        <div class="project-header">
+          <span class="project-num">01</span>
+          <div class="project-links">
+            <span class="project-status">Research</span>
+          </div>
+        </div>
+        <h3 class="project-title">HealthTimeSeriesGym: Agentic AI For MLE Tasks In Healthcare</h3>
+        <p class="project-desc">
+          An evaluation benchmark for AI agents on real-world healthcare MLE tasks over time-series data, emphasizing privacy, robustness, and deployment constraints.
+        </p>
+        <div class="project-stack">
+          <span>Python</span><span>vLLM</span><span>LangGraph</span><span>Agentic AI</span>
+        </div>
+      </div>
+
+      <div class="project-card project-card-muted fade-in">
+        <div class="project-header">
+          <span class="project-num">02</span>
+          <div class="project-links">
+            <span class="project-status">Independent Study</span>
+          </div>
+        </div>
+        <h3 class="project-title">Multimodal LLM Alignment</h3>
+        <p class="project-desc">
+          Fine-tuned a LLaVA-based multimodal LLM with LoRA on 50K preference-annotated image-text pairs, then trained a DPO alignment pipeline to reduce hallucination — improving MMHalBench score by 12% and outperforming baselines on MMBench, ScienceQA, and LLaVA-Bench by 3–7%.
+        </p>
+        <div class="project-stack">
+          <span>LLaVA</span><span>DPO</span><span>LoRA</span><span>Multimodal Alignment</span><span>PyTorch</span>
+        </div>
+      </div>
+
+      <div class="project-card project-card-muted fade-in">
+        <div class="project-header">
+          <span class="project-num">03</span>
+          <div class="project-links">
+            <span class="project-status">Course project</span>
+          </div>
+        </div>
+        <h3 class="project-title">Consistency Distillation for Diffusion Acceleration</h3>
+        <p class="project-desc">
+          Reproduced Consistency Models and LCM from scratch in PyTorch, exploring modified CFG injection schedules to achieve 8% 2-step FID improvement. Extended to Stable Diffusion and benchmarked against DDPM/DDIM baselines across FID, LPIPS, and CLIP score.
+        </p>
+        <div class="project-stack">
+          <span>Consistency Models</span><span>Stable Diffusion</span><span>Diffusion Distillation</span>
+        </div>
+      </div>
+
+      <div class="project-card project-card-muted fade-in">
+        <div class="project-header">
+          <span class="project-num">04</span>
+          <div class="project-links">
+            <span class="project-status">Course project</span>
+          </div>
+        </div>
+        <h3 class="project-title">Graph Neural Network Recommendation System</h3>
+        <p class="project-desc">
+          Built an end-to-end LightGCN and NGCF recommendation pipeline with BPR loss on MovieLens-1M, improving Recall@20 by 6% and NDCG@20 by 5% through embedding depth tuning. A popularity-debiased negative sampling strategy added another 2% tail-item recall.
+        </p>
+        <div class="project-stack">
+          <span>LightGCN</span><span>Graph Neural Networks</span><span>Collaborative Filtering</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+
+<!-- ============================================================
+     BLOGS
+     ============================================================ -->
+<section id="blogs" class="section">
+  <div class="container">
+    <div class="section-label fade-in">
+      <span class="section-num">03</span>
+      <h2 class="section-title">Blogs</h2>
+    </div>
+
+    <div class="blog-list">
+
+      <a href="blog-1.html" class="blog-card fade-in">
+        <div class="blog-card-meta">
+          <span class="blog-tag">Essay</span>
+          <span class="blog-date">Aug 2026</span>
+          <span class="blog-read">8 min read</span>
+        </div>
+        <div class="blog-card-body">
+          <h3 class="blog-title">Three Internships, One Question</h3>
+          <p class="blog-subtitle">How recommendation systems, multimodal learning, and LLMs gradually led me to the same research question.</p>
+          <p class="blog-summary">Three internships. Three domains. One thread: how can AI truly understand humans — not just their clicks, but their intentions, experiences, and evolving sense of self?</p>
+          <span class="blog-cta">Read essay →</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+
+
+
+<!-- ============================================================
+     LIFE
+     ============================================================ -->
+<section id="life" class="section section-tinted">
+  <div class="container">
+    <div class="section-label fade-in">
+      <span class="section-num">04</span>
+      <h2 class="section-title">Life</h2>
+    </div>
+
+    <div class="life-panels">
+
+      <a href="world-map.html" class="life-panel fade-in">
+        <div class="life-panel-img life-panel-img--travel">
+          <svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
+               preserveAspectRatio="xMidYMid slice"
+               style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;">
+            <defs>
+              <radialGradient id="t-bg" cx="50%" cy="40%" r="70%">
+                <stop offset="0%" stop-color="#0e0820"/>
+                <stop offset="100%" stop-color="#030108"/>
+              </radialGradient>
+              <filter id="t-city-glow" x="-150%" y="-150%" width="400%" height="400%">
+                <feGaussianBlur stdDeviation="3" result="blur"/>
+                <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+              </filter>
+              <filter id="t-soft" x="-200%" y="-200%" width="500%" height="500%">
+                <feGaussianBlur stdDeviation="10"/>
+              </filter>
+            </defs>
+            <!-- Opaque dark background — looks good on any page theme -->
+            <rect width="400" height="260" fill="url(#t-bg)"/>
+            <!-- Star specks -->
+            <circle cx="15" cy="18" r="0.8" fill="rgba(255,255,255,0.32)"/>
+            <circle cx="52" cy="35" r="0.6" fill="rgba(255,255,255,0.22)"/>
+            <circle cx="320" cy="20" r="0.8" fill="rgba(255,255,255,0.28)"/>
+            <circle cx="370" cy="45" r="0.6" fill="rgba(255,255,255,0.18)"/>
+            <circle cx="130" cy="240" r="0.7" fill="rgba(255,255,255,0.22)"/>
+            <circle cx="25" cy="200" r="0.6" fill="rgba(255,255,255,0.18)"/>
+            <circle cx="380" cy="200" r="0.7" fill="rgba(255,255,255,0.22)"/>
+            <!-- Lat/lon grid (cyan) -->
+            <line x1="0" y1="23" x2="400" y2="23" stroke="rgba(40,180,220,0.13)" stroke-width="0.7"/>
+            <line x1="0" y1="90" x2="400" y2="90" stroke="rgba(40,180,220,0.16)" stroke-width="0.7"/>
+            <line x1="0" y1="158" x2="400" y2="158" stroke="rgba(40,180,220,0.11)" stroke-width="0.6"/>
+            <line x1="0" y1="226" x2="400" y2="226" stroke="rgba(40,180,220,0.09)" stroke-width="0.6"/>
+            <line x1="38" y1="0" x2="38" y2="260" stroke="rgba(40,180,220,0.09)" stroke-width="0.6"/>
+            <line x1="76" y1="0" x2="76" y2="260" stroke="rgba(40,180,220,0.09)" stroke-width="0.6"/>
+            <line x1="114" y1="0" x2="114" y2="260" stroke="rgba(40,180,220,0.09)" stroke-width="0.6"/>
+            <line x1="190" y1="0" x2="190" y2="260" stroke="rgba(40,180,220,0.14)" stroke-width="0.7"/>
+            <line x1="305" y1="0" x2="305" y2="260" stroke="rgba(40,180,220,0.09)" stroke-width="0.6"/>
+            <line x1="343" y1="0" x2="343" y2="260" stroke="rgba(40,180,220,0.09)" stroke-width="0.6"/>
+            <!-- Regional glows -->
+            <ellipse cx="65" cy="80" rx="60" ry="50" fill="rgba(255,165,50,0.07)" filter="url(#t-soft)"/>
+            <ellipse cx="190" cy="58" rx="42" ry="35" fill="rgba(120,190,255,0.07)" filter="url(#t-soft)"/>
+            <ellipse cx="345" cy="90" rx="58" ry="48" fill="rgba(255,200,80,0.08)" filter="url(#t-soft)"/>
+            <!-- Flight paths (orange dashed arcs) -->
+            <path d="M 38,72 Q 65,56 93,68" fill="none" stroke="rgba(255,165,50,0.52)" stroke-width="1.2" stroke-dasharray="5,3"/>
+            <path d="M 95,68 Q 143,28 190,43" fill="none" stroke="rgba(255,165,50,0.58)" stroke-width="1.4" stroke-dasharray="5,3"/>
+            <path d="M 192,43 Q 268,18 340,82" fill="none" stroke="rgba(255,165,50,0.52)" stroke-width="1.4" stroke-dasharray="5,3"/>
+            <path d="M 38,72 Q 200,20 368,74" fill="none" stroke="rgba(255,165,50,0.26)" stroke-width="1" stroke-dasharray="4,4"/>
+            <path d="M 340,95 Q 365,165 382,235" fill="none" stroke="rgba(255,165,50,0.40)" stroke-width="1" stroke-dasharray="4,3"/>
+            <path d="M 93,68 Q 88,90 80,111" fill="none" stroke="rgba(255,165,50,0.40)" stroke-width="0.9" stroke-dasharray="4,3"/>
+            <!-- US West Coast -->
+            <ellipse cx="38" cy="72" rx="14" ry="14" fill="rgba(255,195,80,0.12)" filter="url(#t-soft)"/>
+            <g filter="url(#t-city-glow)"><circle cx="38" cy="72" r="3.8" fill="rgba(255,200,80,1)"/></g>
+            <circle cx="38" cy="52" r="2.2" fill="rgba(255,200,80,0.80)"/>
+            <circle cx="41" cy="81" r="1.8" fill="rgba(255,200,80,0.70)"/>
+            <circle cx="44" cy="74" r="1.5" fill="rgba(255,200,80,0.58)"/>
+            <!-- US East Coast -->
+            <ellipse cx="95" cy="68" rx="14" ry="14" fill="rgba(255,195,80,0.12)" filter="url(#t-soft)"/>
+            <g filter="url(#t-city-glow)"><circle cx="95" cy="68" r="3.8" fill="rgba(255,200,80,1)"/></g>
+            <circle cx="89" cy="68" r="2" fill="rgba(255,200,80,0.78)"/>
+            <circle cx="98" cy="66" r="1.8" fill="rgba(255,200,80,0.70)"/>
+            <circle cx="92" cy="70" r="1.5" fill="rgba(255,200,80,0.60)"/>
+            <circle cx="87" cy="68" r="1.5" fill="rgba(255,200,80,0.56)"/>
+            <circle cx="80" cy="111" r="2.2" fill="rgba(255,200,80,0.72)"/>
+            <!-- Europe (blue-white) -->
+            <ellipse cx="190" cy="43" rx="12" ry="12" fill="rgba(160,215,255,0.14)" filter="url(#t-soft)"/>
+            <g filter="url(#t-city-glow)"><circle cx="190" cy="43" r="3.8" fill="rgba(180,225,255,0.96)"/></g>
+            <circle cx="197" cy="55" r="2.2" fill="rgba(180,225,255,0.78)"/>
+            <circle cx="185" cy="68" r="1.8" fill="rgba(180,225,255,0.65)"/>
+            <!-- East Asia (gold) -->
+            <ellipse cx="342" cy="87" rx="20" ry="17" fill="rgba(255,200,80,0.12)" filter="url(#t-soft)"/>
+            <g filter="url(#t-city-glow)"><circle cx="340" cy="82" r="4.2" fill="rgba(255,215,100,1)"/></g>
+            <circle cx="338" cy="68" r="2.2" fill="rgba(255,215,100,0.82)"/>
+            <circle cx="344" cy="70" r="1.8" fill="rgba(255,215,100,0.72)"/>
+            <circle cx="326" cy="91" r="2" fill="rgba(255,215,100,0.68)"/>
+            <circle cx="334" cy="111" r="1.8" fill="rgba(255,215,100,0.62)"/>
+            <circle cx="344" cy="104" r="1.8" fill="rgba(255,215,100,0.62)"/>
+            <circle cx="368" cy="74" r="2.8" fill="rgba(255,215,100,0.85)"/>
+            <circle cx="382" cy="235" r="2.5" fill="rgba(255,215,100,0.68)"/>
+          </svg>
+        </div>
+        <div class="life-panel-info">
+          <div>
+            <h3 class="life-panel-title">Travel</h3>
+            <p class="life-panel-desc">Interactive map &middot; cities across 4 continents</p>
+          </div>
+          <span class="life-panel-arrow">&#8594;</span>
+        </div>
+      </a>
+
+      <a href="hobbies.html" class="life-panel fade-in">
+        <div class="life-panel-img life-panel-img--hobbies">
+          <svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
+               preserveAspectRatio="xMidYMid slice"
+               style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;">
+            <defs>
+              <radialGradient id="h-bg" cx="50%" cy="45%" r="68%">
+                <stop offset="0%" stop-color="#130a28"/>
+                <stop offset="100%" stop-color="#050210"/>
+              </radialGradient>
+              <radialGradient id="h-card-face" cx="30%" cy="22%" r="75%">
+                <stop offset="0%" stop-color="#f9f6f0"/>
+                <stop offset="100%" stop-color="#ede8e0"/>
+              </radialGradient>
+              <filter id="h-red-glow" x="-120%" y="-120%" width="340%" height="340%">
+                <feGaussianBlur stdDeviation="6"/>
+              </filter>
+              <filter id="h-shadow" x="-20%" y="-15%" width="140%" height="140%">
+                <feDropShadow dx="0" dy="5" stdDeviation="10" flood-color="rgba(0,0,0,0.60)"/>
+              </filter>
+            </defs>
+            <!-- Opaque dark background -->
+            <rect width="400" height="260" fill="url(#h-bg)"/>
+            <!-- Floating red suit glows -->
+            <text x="78" y="100" font-size="46" text-anchor="middle"
+                  font-family="Georgia,'Times New Roman',serif"
+                  fill="rgba(210,50,65,0.22)" filter="url(#h-red-glow)">♥</text>
+            <text x="78" y="100" font-size="46" text-anchor="middle"
+                  font-family="Georgia,'Times New Roman',serif"
+                  fill="rgba(210,50,65,0.34)">♥</text>
+            <text x="328" y="108" font-size="40" text-anchor="middle"
+                  font-family="Georgia,'Times New Roman',serif"
+                  fill="rgba(210,50,65,0.20)" filter="url(#h-red-glow)">♦</text>
+            <text x="328" y="108" font-size="40" text-anchor="middle"
+                  font-family="Georgia,'Times New Roman',serif"
+                  fill="rgba(210,50,65,0.30)">♦</text>
+            <text x="332" y="215" font-size="32" text-anchor="middle"
+                  font-family="Georgia,'Times New Roman',serif"
+                  fill="rgba(255,255,255,0.12)">♣</text>
+            <text x="76" y="212" font-size="32" text-anchor="middle"
+                  font-family="Georgia,'Times New Roman',serif"
+                  fill="rgba(255,255,255,0.12)">♠</text>
+            <!-- Card fan back (right, rotated) -->
+            <rect x="190" y="44" width="88" height="126" rx="8"
+                  fill="#1e1240" stroke="rgba(255,255,255,0.16)" stroke-width="1"
+                  transform="rotate(13,234,107)"/>
+            <!-- Card fan mid -->
+            <rect x="164" y="49" width="88" height="126" rx="8"
+                  fill="#221548" stroke="rgba(255,255,255,0.18)" stroke-width="1"
+                  transform="rotate(5,208,112)"/>
+            <!-- Front card: cream face with drop shadow -->
+            <rect x="154" y="54" width="88" height="126" rx="8"
+                  fill="url(#h-card-face)" stroke="rgba(210,200,185,0.50)" stroke-width="0.5"
+                  filter="url(#h-shadow)"/>
+            <!-- Top-left K♠ -->
+            <text x="165" y="74" font-size="14" font-weight="700"
+                  font-family="Georgia,'Times New Roman',serif"
+                  fill="rgba(10,6,26,0.90)">K</text>
+            <text x="165.5" y="86" font-size="12"
+                  font-family="Georgia,'Times New Roman',serif"
+                  fill="rgba(10,6,26,0.82)">♠</text>
+            <!-- Center spade -->
+            <text x="198" y="142" font-size="58" text-anchor="middle"
+                  font-family="Georgia,'Times New Roman',serif"
+                  fill="rgba(10,6,26,0.88)">♠</text>
+            <!-- Bottom-right K♠ rotated 180° -->
+            <text x="231" y="172" font-size="14" font-weight="700"
+                  font-family="Georgia,'Times New Roman',serif"
+                  fill="rgba(10,6,26,0.90)"
+                  transform="rotate(180,234,167)">K</text>
+            <text x="231" y="184" font-size="12"
+                  font-family="Georgia,'Times New Roman',serif"
+                  fill="rgba(10,6,26,0.82)"
+                  transform="rotate(180,234,179)">♠</text>
+          </svg>
+        </div>
+        <div class="life-panel-info">
+          <div>
+            <h3 class="life-panel-title">Hobbies</h3>
+            <p class="life-panel-desc">Cards, handcrafts</p>
+          </div>
+          <span class="life-panel-arrow">&#8594;</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     FOOTER
+     Update GitHub, LinkedIn, and email links below.
+     ============================================================ -->
+<footer id="footer">
+  <div class="container footer-inner">
+    <p class="footer-name">Kaylee's HomeHub</p>
+    <nav class="footer-links" aria-label="Social links">
+      <a href="https://www.linkedin.com/in/jiaming-kaylee-xu/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/KayleeXJM" target="_blank" rel="noopener">GitHub</a>
+      <a href="mailto:kayleex@cs.cmu.edu">Email</a>
+    </nav>
+    <p class="footer-copy">Made with intention &middot; 2026</p>
+  </div>
+</footer>
+
+
+<script src="assets/scripts/html2canvas.min.js"></script>
+<script src="assets/scripts/liquidGL.js"></script>
+<script src="script.js?v=purple-glass-20260607"></script>
+</body>
+</html>

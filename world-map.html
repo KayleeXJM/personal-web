@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Kaylee's world — places visited, mapped." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Places I've Been · Kaylee Xu" />
+  <meta property="og:description" content="An interactive map of places Kaylee Xu has visited." />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Places I've Been · Kaylee Xu" />
+  <meta name="twitter:description" content="An interactive map of places Kaylee Xu has visited." />
+  <link rel="canonical" href="world-map.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23FAF8F5'/%3E%3Ctext x='50%25' y='56%25' text-anchor='middle' font-size='30' font-family='serif' fill='%2349866b'%3EK%3C/text%3E%3C/svg%3E" />
+  <title>Places I've Been · Kaylee Xu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <script>(function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.setAttribute('data-theme',t);}());</script>
+  <link rel="stylesheet" href="style.css?v=purple-glass-20260607-2" />
+  <style>
+    /* ── Map container ── */
+    #map-section {
+      padding: 0 0 40px;
+    }
+
+    #map-section .container {
+      padding-bottom: 0;
+    }
+
+    #world-wrap {
+      position: relative;
+      width: 100%;
+      height: clamp(420px, 62vh, 680px);
+      border-radius: var(--glass-radius);
+      overflow: hidden;
+      box-shadow: var(--glass-shadow), inset 0 1px 0 var(--glass-highlight);
+      background: linear-gradient(135deg, var(--glass-bg-strong), var(--glass-bg-soft));
+      border: 1px solid var(--glass-border);
+      -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+      backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+    }
+
+    #map {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Strip Leaflet default icon background */
+    .leaflet-div-icon {
+      background: transparent !important;
+      border: none !important;
+    }
+
+    .leaflet-control-attribution {
+      font-size: 10px;
+      opacity: 0.55;
+      background: rgba(30, 18, 52, 0.48) !important;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-radius: 6px !important;
+    }
+
+    .leaflet-control-zoom {
+      border: none !important;
+      box-shadow: 0 2px 14px rgba(0,0,0,0.09) !important;
+      border-radius: 10px !important;
+      overflow: hidden;
+    }
+
+    .leaflet-control-zoom a {
+      background: rgba(30, 18, 52, 0.78) !important;
+      color: #eadfff !important;
+      border: none !important;
+      width: 32px !important;
+      height: 32px !important;
+      line-height: 32px !important;
+      font-size: 17px !important;
+    }
+
+    /* ── Map pins ── */
+    .map-pin-wrapper {
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      transform-origin: bottom center;
+    }
+
+    .map-pin-wrapper:hover svg path {
+      fill: #9d7ed4;
+    }
+
+    .map-pin-wrapper.dimmed {
+      opacity: 0.3;
+      filter: grayscale(1);
+    }
+
+    .pin-pulse-ring {
+      position: absolute;
+      top: -5px;
+      left: -5px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(143, 115, 217, 0.22);
+      animation: ringPulse 2.6s ease-out infinite;
+      pointer-events: none;
+    }
+
+    .map-pin-wrapper.dimmed .pin-pulse-ring { display: none; }
+
+    @keyframes ringPulse {
+      0%   { transform: scale(0.4); opacity: 0.8; }
+      100% { transform: scale(2.2); opacity: 0; }
+    }
+
+    /* ── Timeline pill bar ── */
+    .map-timeline {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+      display: flex;
+      gap: 3px;
+      align-items: center;
+      background: linear-gradient(135deg, var(--glass-bg-strong), var(--glass-bg-soft));
+      backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+      -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+      border-radius: 50px;
+      padding: 5px 8px;
+      box-shadow: var(--glass-shadow), inset 0 1px 0 var(--glass-highlight);
+      max-width: calc(100% - 32px);
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .map-timeline::-webkit-scrollbar { display: none; }
+
+    .timeline-pill {
+      padding: 6px 15px;
+      border-radius: 50px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      color: #999;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .timeline-pill:hover  { color: rgba(175,148,235,0.9); background: rgba(143,115,217,0.10); }
+    .timeline-pill.active { background: rgba(201, 167, 255, 0.28); color: #fff; }
+
+    /* ── Location count badge ── */
+    .location-count {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      z-index: 1000;
+      background: linear-gradient(135deg, var(--glass-bg-strong), var(--glass-bg-soft));
+      backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+      -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+      border-radius: 50px;
+      padding: 5px 13px;
+      font-size: 12px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: #888;
+      pointer-events: none;
+      box-shadow: var(--glass-shadow), inset 0 1px 0 var(--glass-highlight);
+    }
+
+    .location-count strong { color: rgba(201,167,255,0.92); font-weight: 600; }
+
+    /* ── Empty state ── */
+    .empty-msg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 999;
+      background: linear-gradient(135deg, var(--glass-bg-strong), var(--glass-bg-soft));
+      backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+      -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+      border-radius: var(--radius-lg);
+      padding: 22px 32px;
+      text-align: center;
+      box-shadow: var(--glass-shadow), inset 0 1px 0 var(--glass-highlight);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .empty-msg.visible { opacity: 1; }
+    .empty-msg p {
+      font-size: 14px;
+      color: #aaa;
+      font-style: italic;
+      font-family: 'Fraunces', serif;
+      font-weight: 300;
+    }
+
+    /* ── Hover / tap card ── */
+    .hover-card {
+      position: absolute;
+      z-index: 2000;
+      width: 260px;
+      background: linear-gradient(135deg, var(--glass-bg-strong), var(--glass-bg-soft));
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--glass-shadow), inset 0 1px 0 var(--glass-highlight);
+      backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+      -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+      overflow: hidden;
+      pointer-events: none;
+      opacity: 0;
+      transform: translateY(6px) scale(0.98);
+      transition: opacity 0.22s ease, transform 0.22s ease;
+    }
+    .hover-card.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    .hover-card.touch-pinned {
+      position: fixed;
+      bottom: 32px;
+      left: 50%;
+      top: auto !important;
+      transform: translateX(-50%) translateY(6px) scale(0.98);
+      width: min(260px, calc(100vw - 32px));
+      pointer-events: auto;
+    }
+    .hover-card.touch-pinned.visible {
+      transform: translateX(-50%) translateY(0) scale(1);
+    }
+
+    .hover-photo {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      display: block;
+    }
+    .hover-photo-placeholder {
+      width: 100%;
+      height: 110px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+      background: linear-gradient(135deg, #2a1a52 0%, #1a0e3a 100%);
+    }
+    .hover-body { padding: 13px 15px 15px; }
+    .hover-location {
+      font-size: 14.5px;
+      font-weight: 600;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: #1a1a1a;
+      margin-bottom: 3px;
+      line-height: 1.25;
+    }
+    .hover-date {
+      font-size: 10px;
+      color: rgba(175,148,235,0.88);
+      font-weight: 600;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .hover-divider { height: 1px; background: #f0f0f0; margin: 9px 0; }
+    .hover-desc {
+      font-size: 12px;
+      color: #777;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      line-height: 1.6;
+    }
+
+    /* Glow on active region SVG paths */
+    .region-glow {
+      filter: drop-shadow(0 0 6px rgba(143, 115, 217, 0.58));
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 640px) {
+      #world-wrap {
+        height: clamp(340px, 55vh, 480px);
+        border-radius: 12px;
+      }
+      .map-timeline { bottom: 14px; padding: 4px 6px; }
+      .timeline-pill { padding: 5px 11px; font-size: 11px; }
+      .location-count { top: 12px; right: 12px; }
+      .leaflet-top.leaflet-right { top: 48px !important; }
+    }
+
+    @media (max-width: 400px) {
+      .location-count { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="index.html" class="nav-logo">Jiaming (Kaylee) Xu</a>
+  <ul class="nav-links">
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#experience">Experience</a></li>
+    <li><a href="index.html#projects">Projects</a></li>
+    <li><a href="index.html#life">Life</a></li>
+  </ul>
+  <button class="nav-theme-btn" id="themeToggle" aria-label="Toggle colour theme">
+    <svg class="theme-icon theme-icon--sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    <svg class="theme-icon theme-icon--moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+  <button class="nav-menu-btn" id="navMenuBtn" aria-label="Open menu">&#9776;</button>
+</nav>
+
+<div class="nav-drawer" id="navDrawer">
+  <button class="drawer-close" id="drawerClose" aria-label="Close menu">&#215;</button>
+  <ul>
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#experience">Experience</a></li>
+    <li><a href="index.html#projects">Projects</a></li>
+    <li><a href="index.html#life">Life</a></li>
+  </ul>
+</div>
+<div class="nav-overlay" id="navOverlay"></div>
+
+
+<section class="section" style="padding-top: calc(var(--nav-h) + 60px); padding-bottom: 0;">
+  <div class="container">
+    <div class="subpage-header">
+      <a href="index.html#life" class="subpage-back">&#8592; Life</a>
+      <div class="section-label" style="margin-bottom: 0;">
+        <h1 class="section-title">Places I've been</h1>
+        <p class="section-subtitle">26 cities across 4 continents — and counting.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section id="map-section">
+  <div class="container">
+
+    <div id="world-wrap">
+      <div id="map"></div>
+
+      <div class="location-count" id="locationCount">
+        <strong>26</strong> places
+      </div>
+
+      <div class="map-timeline">
+        <button class="timeline-pill active" data-period="all">All</button>
+        <button class="timeline-pill" data-period="before_2023">— 2023</button>
+        <button class="timeline-pill" data-period="2023">2023</button>
+        <button class="timeline-pill" data-period="2024">2024</button>
+        <button class="timeline-pill" data-period="2025">2025</button>
+        <button class="timeline-pill" data-period="2026">2026</button>
+      </div>
+
+      <div class="empty-msg visible" id="emptyMsg">
+        <p>Map is loading. If it does not appear, check your connection and refresh.</p>
+      </div>
+
+      <div class="hover-card" id="hoverCard">
+        <div id="hoverPhotoArea"></div>
+        <div class="hover-body">
+          <div class="hover-location" id="hoverLocation"></div>
+          <div class="hover-date"     id="hoverDate"></div>
+          <div id="hoverDescWrap">
+            <div class="hover-divider"></div>
+            <div class="hover-desc" id="hoverDesc"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<footer id="footer">
+  <div class="container footer-inner">
+    <p class="footer-name">Kaylee</p>
+    <nav class="footer-links" aria-label="Social links">
+      <a href="https://www.linkedin.com/in/jiaming-kaylee-xu/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/KayleeXJM" target="_blank" rel="noopener">GitHub</a>
+      <a href="mailto:kayleex@cs.cmu.edu">Email</a>
+    </nav>
+    <p class="footer-copy">Made with intention &middot; 2026</p>
+  </div>
+</footer>
+
+
+<script src="assets/scripts/html2canvas.min.js"></script>
+<script src="assets/scripts/liquidGL.js"></script>
+<script src="script.js?v=purple-glass-20260607"></script>
+<!-- Leaflet + TopoJSON -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
+
+<script>
+// ═══════════════════════════════════════════════════════
+// LOCATION DATA
+// countryId : ISO 3166-1 numeric (null for US locations)
+// stateIds  : US FIPS numeric codes ([] for international)
+// photo     : path string or null — replace with real paths
+// ═══════════════════════════════════════════════════════
+const locations = [
+  // ── International (pre-2023) ──────────────────────────
+  {
+    id: 'england', name: 'London, England',
+    coords: [51.5074, -0.1278], periods: ['before_2023'],
+    date: 'July 2013', description: '',
+    photo: null, emoji: '🏰',
+    countryId: 826, stateIds: []
+  },
+  {
+    id: 'japan', name: 'Japan',
+    coords: [35.6762, 139.6503], periods: ['before_2023'],
+    date: 'February 2015', description: '',
+    photo: null, emoji: '🌸',
+    countryId: 392, stateIds: []
+  },
+  {
+    id: 'australia', name: 'Australia',
+    coords: [-33.8688, 151.2093], periods: ['before_2023'],
+    date: 'July 2015', description: '',
+    photo: null, emoji: '🦘',
+    countryId: 36, stateIds: []
+  },
+  {
+    id: 'lyon', name: 'Lyon, France',
+    coords: [45.7640, 4.8357], periods: ['before_2023'],
+    date: 'August 2017',
+    description: 'Competed in the 5th World Youth Open Bridge Championships. Won gold in U25 Girls Teams and silver in Pairs — one of the stranger and more formative experiences of my life.',
+    photo: null, emoji: '🃏',
+    countryId: 250, stateIds: []
+  },
+
+  // ── China ─────────────────────────────────────────────
+  {
+    id: 'shanghai', name: 'Shanghai',
+    coords: [31.2304, 121.4737], periods: ['before_2023'],
+    date: 'Before 2022', description: '',
+    photo: null, emoji: '🌆',
+    countryId: 156, stateIds: []
+  },
+  {
+    id: 'dalian', name: 'Dalian',
+    coords: [38.9140, 121.6147], periods: ['before_2023'],
+    date: 'Before 2023', description: '',
+    photo: null, emoji: '🌊',
+    countryId: 156, stateIds: []
+  },
+  {
+    id: 'chongqing', name: 'Chongqing',
+    coords: [29.5630, 106.5516], periods: ['2023'],
+    date: 'March 2023', description: '',
+    photo: null, emoji: '🌉',
+    countryId: 156, stateIds: []
+  },
+  {
+    id: 'shenzhen', name: 'Shenzhen',
+    coords: [22.5431, 114.0579], periods: ['2023'],
+    date: 'July 2023', description: '',
+    photo: null, emoji: '🏙️',
+    countryId: 156, stateIds: []
+  },
+  {
+    id: 'hongkong', name: 'Hong Kong',
+    coords: [22.3193, 114.1694], periods: ['2024'],
+    date: 'December 2024', description: '',
+    photo: null, emoji: '🏮',
+    countryId: 344, stateIds: []
+  },
+  {
+    id: 'nanjing', name: 'Nanjing',
+    coords: [32.0603, 118.7969], periods: ['2025'],
+    date: 'Jan & Jul 2025', description: '',
+    photo: null, emoji: '🏯',
+    countryId: 156, stateIds: []
+  },
+  {
+    id: 'hangzhou', name: 'Hangzhou',
+    coords: [30.2741, 120.1551], periods: ['2025'],
+    date: 'March 2025', description: '',
+    photo: null, emoji: '🍵',
+    countryId: 156, stateIds: []
+  },
+  {
+    id: 'beijing', name: 'Beijing',
+    coords: [39.9042, 116.4074], periods: ['2025'],
+    date: 'April 2025', description: '',
+    photo: null, emoji: '🏛️',
+    countryId: 156, stateIds: []
+  },
+  {
+    id: 'taiwan', name: 'Taiwan',
+    coords: [25.0330, 121.5654], periods: ['2026'],
+    date: 'May 2026', description: '',
+    photo: null, emoji: '🫧',
+    countryId: 158, stateIds: []
+  },
+
+  // ── Americas 2023 ──────────────────────────────────────
+  {
+    id: 'mexico', name: 'Cancún, Mexico',
+    coords: [21.1619, -86.8515], periods: ['2023'],
+    date: 'November 2023', description: '',
+    photo: null, emoji: '🌊',
+    countryId: 484, stateIds: []
+  },
+  {
+    id: 'philadelphia', name: 'Philadelphia, PA',
+    coords: [39.9526, -75.1652], periods: ['2023'],
+    date: 'October 2023', description: '',
+    photo: null, emoji: '🔔',
+    countryId: null, stateIds: [42]
+  },
+  {
+    id: 'newyork', name: 'New York, NY',
+    coords: [40.7128, -74.006], periods: ['2023', '2024'],
+    date: 'August 2023 — May 2024',
+    description: 'Lived in New York for a year during my study away program. The city became a kind of second home.',
+    photo: null, emoji: '🗽',
+    countryId: null, stateIds: [36]
+  },
+  {
+    id: 'sf', name: 'San Francisco, CA',
+    coords: [37.7749, -122.4194], periods: ['2023', '2025'],
+    date: 'Dec 2023 & Dec 2025', description: '',
+    photo: null, emoji: '🌉',
+    countryId: null, stateIds: [6]
+  },
+  {
+    id: 'la', name: 'Los Angeles, CA',
+    coords: [34.0522, -118.2437], periods: ['2023', '2025'],
+    date: 'Dec 2023 & Dec 2025', description: '',
+    photo: null, emoji: '🌴',
+    countryId: null, stateIds: [6]
+  },
+
+  // ── US 2024 ────────────────────────────────────────────
+  {
+    id: 'lasvegas', name: 'Las Vegas, NV',
+    coords: [36.1699, -115.1398], periods: ['2024'],
+    date: 'March 2024', description: '',
+    photo: null, emoji: '🎰',
+    countryId: null, stateIds: [32]
+  },
+  {
+    id: 'nationalparks', name: 'National Parks — Nevada & Utah',
+    coords: [37.2982, -113.0263], periods: ['2024'],
+    date: 'March 2024',
+    description: 'Road trip through the American Southwest — Zion, Bryce Canyon, and the red rock landscapes.',
+    photo: null, emoji: '🏜️',
+    countryId: null, stateIds: [32, 49]
+  },
+  {
+    id: 'boston', name: 'Boston, MA',
+    coords: [42.3601, -71.0589], periods: ['2024'],
+    date: 'May 2024', description: '',
+    photo: null, emoji: '🦞',
+    countryId: null, stateIds: [25]
+  },
+
+  // ── International 2025 ─────────────────────────────────
+  {
+    id: 'spain', name: 'Spain',
+    coords: [40.4168, -3.7038], periods: ['2025'],
+    date: 'June 2025', description: '',
+    photo: null, emoji: '🌻',
+    countryId: 724, stateIds: []
+  },
+
+  // ── US 2025–2026 ───────────────────────────────────────
+  {
+    id: 'pittsburgh', name: 'Pittsburgh, PA',
+    coords: [40.4406, -79.9959], periods: ['2025', '2026'],
+    date: 'August 2025 — present',
+    description: 'Home at Carnegie Mellon, pursuing my MS in Machine Learning and researching agentic AI for healthcare.',
+    photo: null, emoji: '🌁',
+    countryId: null, stateIds: [42]
+  },
+  {
+    id: 'seattle', name: 'Seattle, WA',
+    coords: [47.6062, -122.3321], periods: ['2025'],
+    date: 'October 2025', description: '',
+    photo: null, emoji: '☕',
+    countryId: null, stateIds: [53]
+  },
+  {
+    id: 'cleveland', name: 'Cleveland, OH',
+    coords: [41.4993, -81.6944], periods: ['2025'],
+    date: 'December 2025', description: '',
+    photo: null, emoji: '🎵',
+    countryId: null, stateIds: [39]
+  },
+  {
+    id: 'dc', name: 'Washington, D.C.',
+    coords: [38.9072, -77.0369], periods: ['2026'],
+    date: 'March 2026', description: '',
+    photo: null, emoji: '🏛️',
+    countryId: null, stateIds: [11]
+  }
+];
+
+// ═══════════════════════════════════════════════════════
+// TOUCH DETECTION
+// ═══════════════════════════════════════════════════════
+const isTouch = window.matchMedia('(pointer: coarse)').matches;
+
+if (!window.L || !window.topojson) {
+  const emptyMsg = document.getElementById('emptyMsg');
+  if (emptyMsg) {
+    emptyMsg.querySelector('p').textContent = 'Map libraries could not load. Please check your connection and refresh.';
+    emptyMsg.classList.add('visible');
+  }
+} else {
+
+// ═══════════════════════════════════════════════════════
+// MAP INIT
+// ═══════════════════════════════════════════════════════
+const map = L.map('map', {
+  zoomControl: false,
+  scrollWheelZoom: false,   // prevent accidental scroll-hijack on page
+  minZoom: 2,
+  maxZoom: 14,
+  worldCopyJump: false,
+  maxBounds: [[-90, -180], [90, 180]],
+  maxBoundsViscosity: 1.0,
+  tap: true
+});
+
+// Enable scroll wheel zoom only while focused (click on map)
+map.on('click', () => map.scrollWheelZoom.enable());
+map.on('blur',  () => map.scrollWheelZoom.disable());
+document.addEventListener('click', e => {
+  if (!document.getElementById('world-wrap').contains(e.target)) {
+    map.scrollWheelZoom.disable();
+  }
+});
+
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
+  attribution: '© OpenStreetMap © CARTO',
+  subdomains: 'abcd',
+  maxZoom: 19,
+  noWrap: true
+}).addTo(map);
+
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}{r}.png', {
+  attribution: '',
+  subdomains: 'abcd',
+  maxZoom: 19,
+  noWrap: true,
+  pane: 'shadowPane'
+}).addTo(map);
+
+L.control.zoom({ position: 'topright' }).addTo(map);
+
+// ═══════════════════════════════════════════════════════
+// REGION HIGHLIGHT
+// ═══════════════════════════════════════════════════════
+let activeCountryIds = new Set();
+let activeStateIds   = new Set();
+
+function computeActiveRegions(period) {
+  const active = period === 'all'
+    ? locations
+    : locations.filter(l => l.periods.includes(period));
+  const countries = new Set();
+  const states    = new Set();
+  active.forEach(loc => {
+    if (loc.countryId) countries.add(loc.countryId);
+    loc.stateIds.forEach(s => states.add(s));
+  });
+  return { countries, states };
+}
+
+function styleCountry(feature) {
+  const id = parseInt(feature.id, 10);
+  const on = activeCountryIds.has(id);
+  return {
+    fillColor: on ? '#8B6BD4' : 'transparent', fillOpacity: on ? 0.30 : 0,
+    color: on ? '#6040B0' : 'transparent', weight: on ? 2 : 0,
+    opacity: on ? 0.80 : 0, className: on ? 'region-glow' : '', interactive: false
+  };
+}
+
+function styleState(feature) {
+  const id = parseInt(feature.id, 10);
+  const on = activeStateIds.has(id);
+  return {
+    fillColor: on ? '#8B6BD4' : 'transparent', fillOpacity: on ? 0.32 : 0,
+    color: on ? '#6040B0' : 'transparent', weight: on ? 2 : 0,
+    opacity: on ? 0.80 : 0, className: on ? 'region-glow' : '', interactive: false
+  };
+}
+
+let countryLayer = null;
+let stateLayer   = null;
+
+// ═══════════════════════════════════════════════════════
+// PIN FACTORY
+// ═══════════════════════════════════════════════════════
+function makePinSVG(color, dotColor) {
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 36" width="26" height="36">
+    <path d="M13 1C6.925 1 2 5.925 2 12C2 21.3 13 35 13 35C13 35 24 21.3 24 12C24 5.925 19.075 1 13 1Z"
+          fill="${color}" stroke="white" stroke-width="2"/>
+    <circle cx="13" cy="12" r="5.5" fill="${dotColor}" opacity="0.95"/>
+  <\/svg>`;
+}
+
+function makeIcon(dimmed) {
+  const fill = dimmed ? '#b0b0b0' : '#9B7FE0';
+  const dot  = dimmed ? '#d8d8d8' : 'white';
+  return L.divIcon({
+    className: '',
+    html: `<div class="map-pin-wrapper ${dimmed ? 'dimmed' : ''}">
+      ${dimmed ? '' : '<div class="pin-pulse-ring"><\/div>'}
+      ${makePinSVG(fill, dot)}
+    <\/div>`,
+    iconSize: [26, 36], iconAnchor: [13, 36], popupAnchor: [0, -36]
+  });
+}
+
+// ═══════════════════════════════════════════════════════
+// HOVER / TAP CARD
+// ═══════════════════════════════════════════════════════
+const hoverCard  = document.getElementById('hoverCard');
+const hoverPhoto = document.getElementById('hoverPhotoArea');
+const hoverLoc   = document.getElementById('hoverLocation');
+const hoverDate  = document.getElementById('hoverDate');
+const hoverDesc  = document.getElementById('hoverDesc');
+const hoverDescW = document.getElementById('hoverDescWrap');
+let activeCardLocId = null;
+
+function populateCard(loc) {
+  hoverPhoto.innerHTML = loc.photo
+    ? `<img class="hover-photo" src="${loc.photo}" alt="${loc.name}"/>`
+    : `<div class="hover-photo-placeholder">${loc.emoji}<\/div>`;
+  hoverLoc.textContent  = loc.name;
+  hoverDate.textContent = loc.date;
+  if (loc.description) {
+    hoverDesc.textContent    = loc.description;
+    hoverDescW.style.display = 'block';
+  } else {
+    hoverDescW.style.display = 'none';
+  }
+}
+
+function showCard(e, loc) {
+  populateCard(loc);
+  if (isTouch) {
+    hoverCard.classList.add('touch-pinned');
+  } else {
+    hoverCard.classList.remove('touch-pinned');
+    const pt   = map.latLngToContainerPoint(e.latlng);
+    const wrap = document.getElementById('world-wrap');
+    const cW = 260, cH = loc.description ? 270 : 195, gap = 14;
+    let left = pt.x + gap + 8;
+    let top  = pt.y - cH / 2;
+    if (left + cW > wrap.offsetWidth  - gap) left = pt.x - cW - gap;
+    if (top        < gap)                    top  = gap;
+    if (top + cH   > wrap.offsetHeight - gap - 50) top = wrap.offsetHeight - cH - gap - 50;
+    hoverCard.style.left = left + 'px';
+    hoverCard.style.top  = top  + 'px';
+  }
+  hoverCard.classList.add('visible');
+  activeCardLocId = loc.id;
+}
+
+function hideCard() {
+  hoverCard.classList.remove('visible');
+  activeCardLocId = null;
+}
+
+map.on('click', () => { if (isTouch) hideCard(); });
+
+// ═══════════════════════════════════════════════════════
+// MARKERS
+// ═══════════════════════════════════════════════════════
+const markerRegistry = {};
+
+function buildMarkers() {
+  locations.forEach(loc => {
+    const marker = L.marker(loc.coords, { icon: makeIcon(false) }).addTo(map);
+    if (isTouch) {
+      marker.on('click', e => {
+        activeCardLocId === loc.id ? hideCard() : showCard(e, loc);
+        L.DomEvent.stopPropagation(e);
+      });
+    } else {
+      marker.on('mouseover', e => showCard(e, loc));
+      marker.on('mouseout',  ()  => hideCard());
+    }
+    markerRegistry[loc.id] = { marker, loc };
+  });
+}
+
+// ═══════════════════════════════════════════════════════
+// PERIOD SWITCH
+// ═══════════════════════════════════════════════════════
+const emptyMsg = document.getElementById('emptyMsg');
+const locCount = document.getElementById('locationCount');
+let currentPeriod = 'all';
+
+function setActivePeriod(period) {
+  currentPeriod = period;
+  hideCard();
+  document.querySelectorAll('.timeline-pill').forEach(p => {
+    p.classList.toggle('active', p.dataset.period === period);
+  });
+  const filtered = period === 'all'
+    ? locations
+    : locations.filter(l => l.periods.includes(period));
+  locCount.innerHTML = `<strong>${filtered.length}<\/strong> place${filtered.length !== 1 ? 's' : ''}`;
+  emptyMsg.classList.toggle('visible', filtered.length === 0);
+  locations.forEach(loc => {
+    const on = period === 'all' || loc.periods.includes(period);
+    markerRegistry[loc.id].marker.setIcon(makeIcon(!on));
+  });
+  const { countries, states } = computeActiveRegions(period);
+  activeCountryIds = countries;
+  activeStateIds   = states;
+  if (countryLayer) countryLayer.setStyle(styleCountry);
+  if (stateLayer)   stateLayer.setStyle(styleState);
+}
+
+// ═══════════════════════════════════════════════════════
+// LOAD ATLAS DATA
+// ═══════════════════════════════════════════════════════
+Promise.all([
+  fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json').then(r => r.json()),
+  fetch('https://cdn.jsdelivr.net/npm/us-atlas@3/states-110m.json').then(r => r.json())
+])
+.then(([worldTopo, usTopo]) => {
+  const worldGeo = topojson.feature(worldTopo, worldTopo.objects.countries);
+  const usGeo    = topojson.feature(usTopo,    usTopo.objects.states);
+  countryLayer = L.geoJSON(worldGeo, { style: styleCountry, interactive: false }).addTo(map);
+  stateLayer   = L.geoJSON(usGeo,    { style: styleState,   interactive: false }).addTo(map);
+  buildMarkers();
+  emptyMsg.classList.remove('visible');
+  const { countries, states } = computeActiveRegions('all');
+  activeCountryIds = countries;
+  activeStateIds   = states;
+  countryLayer.setStyle(styleCountry);
+  stateLayer.setStyle(styleState);
+  map.setView([30, 10], 2);
+})
+.catch(err => {
+  console.warn('Atlas load failed, showing pins only:', err);
+  buildMarkers();
+  emptyMsg.classList.remove('visible');
+  map.setView([30, 10], 2);
+});
+
+document.querySelectorAll('.timeline-pill').forEach(pill => {
+  pill.addEventListener('click', () => setActivePeriod(pill.dataset.period));
+});
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,418 @@
+/* ============================================================
+   MUSIC PAGE — music.css
+   As a musician · Original works · Favorites · Vinyl
+   ============================================================ */
+
+
+/* ==================== PAGE HEADER ==================== */
+
+.mu-page-header {
+  padding: calc(var(--nav-h) + 72px) 0 56px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.34), rgba(168, 196, 184, 0.20));
+  border-bottom: 1px solid var(--glass-border);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+}
+
+.mu-page-header .container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mu-page-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 300;
+  color: var(--text);
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.mu-page-desc {
+  font-size: 1rem;
+  color: var(--text-muted);
+  font-weight: 300;
+  max-width: 480px;
+  line-height: 1.6;
+}
+
+
+/* ==================== SECTIONS ==================== */
+
+.mu-section {
+  padding: 72px 0 80px;
+}
+
+.mu-section--tinted {
+  background: transparent;
+}
+
+.mu-section-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 300;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+}
+
+.mu-section-desc {
+  font-size: 0.9375rem;
+  color: var(--text-muted);
+  font-weight: 300;
+  margin-bottom: 48px;
+  line-height: 1.6;
+}
+
+.mu-empty-state {
+  border: 1px dashed var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  background: linear-gradient(135deg, var(--glass-bg-strong), var(--glass-bg-soft));
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+}
+
+.mu-empty-state p {
+  color: var(--text-muted);
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  text-align: center;
+}
+
+
+/* ==================== SECTION 1 — AS A MUSICIAN ==================== */
+
+.mu-roles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.mu-role-card {
+  background: linear-gradient(135deg, var(--glass-bg-strong), var(--glass-bg-soft));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: 36px 28px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mu-role-icon {
+  font-size: 1.75rem;
+  line-height: 1;
+  color: var(--sage);
+  margin-bottom: 4px;
+}
+
+.mu-role-name {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+
+.mu-role-body {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+
+/* ==================== SECTION 2 — ORIGINAL WORKS ==================== */
+
+.mu-tracks {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.mu-track {
+  display: grid;
+  grid-template-columns: 80px 1fr auto;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 24px;
+  background: linear-gradient(135deg, var(--glass-bg-strong), var(--glass-bg-soft));
+  transition: background 0.2s;
+}
+
+.mu-track + .mu-track {
+  border-top: 1px solid var(--border);
+}
+
+.mu-track:hover {
+  background: var(--sage-faint);
+}
+
+.mu-track--ph {
+  cursor: default;
+  opacity: 0.75;
+}
+
+.mu-track--ph:hover {
+  background: var(--white);
+}
+
+.mu-track-cover {
+  width: 80px;
+  height: 80px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.mu-track-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.mu-track-cover--ph {
+  background: linear-gradient(135deg, #2A2826 0%, #3A3634 100%);
+}
+
+.mu-track-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.mu-track-title {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+
+.mu-track-desc {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.mu-track-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.mu-track-tags span {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--sage);
+  background: var(--sage-faint);
+  padding: 3px 8px;
+  border-radius: 20px;
+}
+
+.mu-track-player {
+  height: 32px;
+  width: 200px;
+  accent-color: var(--sage);
+  flex-shrink: 0;
+}
+
+
+/* ==================== SECTION 3 — FAVORITES ==================== */
+
+.mu-favs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.mu-fav-item {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  background: linear-gradient(135deg, var(--glass-bg-strong), var(--glass-bg-soft));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.mu-fav-item:hover {
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-2px);
+}
+
+.mu-fav-cover {
+  width: 72px;
+  height: 72px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.mu-fav-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.mu-fav-cover--ph {
+  /* background set inline per item */
+}
+
+.mu-fav-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.mu-fav-artist {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+
+.mu-fav-album {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+.mu-fav-note {
+  font-size: 0.8125rem;
+  color: var(--text-light);
+  font-weight: 300;
+  line-height: 1.55;
+  margin-top: 4px;
+}
+
+
+/* ==================== SECTION 4 — VINYL ==================== */
+
+.mu-vinyl-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 12px;
+}
+
+.mu-vinyl-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mu-vinyl-item img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: var(--radius);
+  display: block;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.mu-vinyl-item:hover img {
+  transform: scale(1.04) rotate(-1deg);
+  box-shadow: var(--shadow-hover);
+}
+
+.mu-vinyl-cover-ph {
+  aspect-ratio: 1;
+  border-radius: var(--radius);
+  /* background set inline per item */
+}
+
+.mu-vinyl-label {
+  font-size: 0.6875rem;
+  color: var(--text-muted);
+  font-weight: 400;
+  text-align: center;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mu-vinyl-item--ph {
+  cursor: default;
+}
+
+.mu-vinyl-item--ph .mu-vinyl-label {
+  color: var(--border);
+  font-style: italic;
+}
+
+
+/* ==================== RESPONSIVE ==================== */
+
+@media (max-width: 1024px) {
+  .mu-vinyl-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .mu-roles {
+    grid-template-columns: 1fr;
+  }
+
+  .mu-favs {
+    grid-template-columns: 1fr;
+  }
+
+  .mu-track {
+    grid-template-columns: 64px 1fr;
+  }
+
+  .mu-track-player {
+    display: none;
+  }
+
+  .mu-vinyl-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .mu-page-header {
+    padding: calc(var(--nav-h) + 48px) 0 40px;
+  }
+
+  .mu-section {
+    padding: 48px 0 56px;
+  }
+
+  .mu-section-desc {
+    margin-bottom: 32px;
+  }
+
+  .mu-track {
+    grid-template-columns: 56px 1fr;
+    gap: 14px;
+    padding: 16px 20px;
+  }
+
+  .mu-track-cover {
+    width: 56px;
+    height: 56px;
+  }
+
+  .mu-fav-cover {
+    width: 60px;
+    height: 60px;
+  }
+
+  .mu-vinyl-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+}
