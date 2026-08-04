@@ -88,7 +88,6 @@ body {
   isolation: isolate;
 }
 
-
 @keyframes mistDrift {
   0% {
     transform: translate3d(-2%, -1%, 0) scale(1);
@@ -129,9 +128,6 @@ button:focus-visible {
 .panel-close,
 .leaflet-control-zoom,
 .leaflet-control-attribution,
-.gallery-item,
-.music-gallery,
-.music-item,
 .photo-item img,
 footer,
 .mu-role-card,
@@ -189,7 +185,6 @@ footer,
   mix-blend-mode: screen;
   transition: background 0.06s ease;
 }
-
 
 /* ==================== NAVIGATION ==================== */
 
@@ -281,7 +276,6 @@ footer,
 
 .nav-menu-btn:hover { color: var(--text); border-color: var(--sage-mid); }
 
-
 /* ==================== MOBILE NAV DRAWER ==================== */
 
 .nav-drawer {
@@ -345,7 +339,6 @@ footer,
   pointer-events: auto;
 }
 
-
 /* ==================== LAYOUT HELPERS ==================== */
 
 .container {
@@ -394,7 +387,6 @@ footer,
   font-size: 0.9375rem;
   color: var(--text-muted);
 }
-
 
 /* ==================== HERO ==================== */
 
@@ -447,24 +439,6 @@ footer,
 
 .hero-statement:last-of-type {
   margin-bottom: 40px;
-}
-
-.hero-question {
-  font-family: var(--font-body);
-  font-style: italic;
-  font-size: 1.18rem;
-  font-weight: 500;
-  line-height: 1.5;
-  color: rgba(201, 167, 255, 0.92);
-  max-width: 540px;
-  margin-bottom: 22px;
-  padding-left: 14px;
-  border-left: 2px solid rgba(143, 115, 217, 0.55);
-}
-
-html[data-theme="light"] .hero-question {
-  color: rgba(62, 22, 110, 0.88);
-  border-left-color: rgba(62, 22, 110, 0.45);
 }
 
 /* Highlighted organization names within hero prose */
@@ -624,7 +598,6 @@ html[data-theme="light"] .hero-question {
   50%       { opacity: 1;   transform: scaleY(1.08); }
 }
 
-
 /* ==================== EXPERIENCE ==================== */
 
 .exp-group {
@@ -738,7 +711,6 @@ html[data-theme="light"] .hero-question {
   border: 1px solid var(--border);
 }
 
-
 /* ==================== PROJECTS ==================== */
 
 .projects-grid {
@@ -850,7 +822,6 @@ html[data-theme="light"] .hero-question {
   border: 1px solid rgba(116, 82, 190, 0.38);
   letter-spacing: 0.02em;
 }
-
 
 /* ==================== WORLD / MAP ==================== */
 
@@ -1012,7 +983,6 @@ html[data-theme="light"] .hero-question {
 }
 
 .leaflet-control-attribution a { color: var(--sage) !important; }
-
 
 /* ==================== BLOGS ==================== */
 
@@ -1309,7 +1279,6 @@ html[data-theme="light"] .blog-post-body .code-line {
   }
 }
 
-
 /* ==================== LIFE — main page panels ==================== */
 
 .life-panels {
@@ -1372,7 +1341,6 @@ html[data-theme="light"] .blog-post-body .code-line {
 .life-panel-img--hobbies {
   background: linear-gradient(150deg, rgba(46,20,86,1) 0%, rgba(18,8,46,1) 100%);
 }
-.life-panel-img--gallery     { background: rgba(14, 8, 32, 0.95); }
 .life-panel-img--photography { background: rgba(20, 10, 44, 0.95); }
 
 /* Faint dot grid texture on placeholders (until real images are added) */
@@ -1506,22 +1474,6 @@ html[data-theme="light"] .blog-post-body .code-line {
   margin-bottom: 0;
 }
 
-.music-list {
-  margin-top: 16px;
-  padding-top: 16px;
-  border-top: 1px solid var(--border);
-}
-
-.music-list li {
-  font-size: 0.875rem;
-  color: var(--text-muted);
-  padding: 6px 0;
-  border-bottom: 1px solid var(--border);
-}
-.music-list li:first-child { padding-top: 0; }
-.music-list li:last-child  { border-bottom: none; padding-bottom: 0; }
-
-
 /* ==================== SUB-PAGE SHARED ==================== */
 
 .subpage-header {
@@ -1545,145 +1497,6 @@ html[data-theme="light"] .blog-post-body .code-line {
   transition: color 0.2s;
 }
 .subpage-back:hover { color: var(--sage); }
-
-/* ==================== GALLERY PAGE ==================== */
-
-.gallery-group {
-  margin-bottom: 72px;
-}
-.gallery-group:last-child { margin-bottom: 0; }
-
-.gallery-group-title {
-  font-family: var(--font-display);
-  font-size: 1.5rem;
-  font-weight: 400;
-  letter-spacing: -0.02em;
-  color: var(--text);
-  margin-bottom: 8px;
-}
-
-.gallery-group-desc {
-  font-size: 0.9375rem;
-  color: var(--text-muted);
-  margin-bottom: 32px;
-  max-width: 560px;
-  line-height: 1.7;
-}
-
-.gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
-}
-
-.gallery-item {
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-}
-
-.gallery-item img,
-.gallery-item video {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
-  display: block;
-}
-
-.gallery-placeholder {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: var(--radius-lg);
-  font-size: 0.75rem;
-  letter-spacing: 0.08em;
-}
-
-.gallery-caption {
-  font-size: 0.8125rem;
-  color: var(--text-muted);
-  margin-top: 8px;
-  padding: 0 2px;
-}
-
-/* Music list in gallery */
-.music-gallery {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-}
-
-.music-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-  padding: 20px 28px;
-  border-bottom: 1px solid var(--border);
-  background: var(--white);
-}
-.music-item:last-child { border-bottom: none; }
-
-.music-item audio { flex-shrink: 0; }
-
-.music-item-title {
-  font-size: 0.9375rem;
-  font-weight: 600;
-  color: var(--text);
-  margin-bottom: 4px;
-}
-
-.music-item-desc {
-  font-size: 0.8125rem;
-  color: var(--text-muted);
-  line-height: 1.5;
-}
-
-/* ==================== PHOTOGRAPHY PAGE ==================== */
-
-.photo-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-}
-
-.photo-item img {
-  width: 100%;
-  aspect-ratio: 3 / 2;
-  object-fit: cover;
-  display: block;
-  border-radius: var(--radius);
-  transition: opacity 0.2s;
-}
-.photo-item img:hover { opacity: 0.9; }
-
-.photo-placeholder {
-  width: 100%;
-  aspect-ratio: 3 / 2;
-  background: var(--border);
-  border-radius: var(--radius);
-}
-
-.photo-caption {
-  font-size: 0.75rem;
-  color: var(--text-light);
-  margin-top: 6px;
-  padding: 0 2px;
-}
-
-@media (max-width: 900px) {
-  .gallery-grid  { grid-template-columns: 1fr; }
-  .photo-grid    { grid-template-columns: repeat(2, 1fr); }
-}
-
-@media (max-width: 600px) {
-  .photo-grid { grid-template-columns: 1fr; }
-  .music-item { flex-direction: column; align-items: flex-start; }
-}
 
 /* ==================== FOOTER ==================== */
 
@@ -1723,7 +1536,6 @@ footer {
   font-size: 0.8125rem;
   color: var(--text-light);
 }
-
 
 /* ==================== FADE-IN ANIMATIONS ==================== */
 
@@ -1782,9 +1594,6 @@ footer {
 .life-body,
 .map-panel,
 .panel-close,
-.gallery-item,
-.music-gallery,
-.music-item,
 .photo-item img,
 footer,
 .mu-role-card,
@@ -1869,7 +1678,6 @@ footer {
   border-top-color: rgba(255, 255, 255, 0.46);
 }
 
-
 /* ============================================================
    THEME TOGGLE BUTTON
    ============================================================ */
@@ -1905,7 +1713,6 @@ footer {
 /* Light mode: show moon (click → go dark) */
 html[data-theme="light"] .theme-icon--sun  { display: none; }
 html[data-theme="light"] .theme-icon--moon { display: block; }
-
 
 /* ============================================================
    LIGHT THEME
@@ -1984,10 +1791,7 @@ html[data-theme="light"] .map-panel,
 html[data-theme="light"] .panel-close,
 html[data-theme="light"] .leaflet-control-zoom,
 html[data-theme="light"] .leaflet-control-attribution,
-html[data-theme="light"] .gallery-item,
-html[data-theme="light"] .music-gallery,
-html[data-theme="light"] .music-item,
-html[data-theme="light"] .photo-item img,
+html[data-theme="light"] html[data-theme="light"] html[data-theme="light"] html[data-theme="light"] .photo-item img,
 html[data-theme="light"] footer,
 html[data-theme="light"] .mu-role-card,
 html[data-theme="light"] .mu-track,
@@ -2023,10 +1827,7 @@ html[data-theme="light"] .life-row,
 html[data-theme="light"] .life-body,
 html[data-theme="light"] .map-panel,
 html[data-theme="light"] .panel-close,
-html[data-theme="light"] .gallery-item,
-html[data-theme="light"] .music-gallery,
-html[data-theme="light"] .music-item,
-html[data-theme="light"] .photo-item img,
+html[data-theme="light"] html[data-theme="light"] html[data-theme="light"] html[data-theme="light"] .photo-item img,
 html[data-theme="light"] footer,
 html[data-theme="light"] .mu-role-card,
 html[data-theme="light"] .mu-track,
@@ -2195,7 +1996,6 @@ body, #nav {
   transition: background 0.35s ease, color 0.35s ease;
 }
 
-
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -2212,7 +2012,6 @@ body, #nav {
   }
 }
 
-
 /* ==================== RESPONSIVE — 1024px ==================== */
 
 @media (max-width: 1024px) {
@@ -2221,7 +2020,6 @@ body, #nav {
     gap: 56px;
   }
 }
-
 
 /* ==================== RESPONSIVE — 900px ==================== */
 
@@ -2278,7 +2076,6 @@ body, #nav {
   .section { padding: 88px 0; }
 }
 
-
 /* ==================== RESPONSIVE — 640px ==================== */
 
 @media (max-width: 640px) {
@@ -2318,7 +2115,6 @@ body, #nav {
   }
 }
 
-
 /* ==================== RESPONSIVE — 400px ==================== */
 
 @media (max-width: 400px) {
@@ -2326,7 +2122,6 @@ body, #nav {
   .container { padding: 0 16px; }
   .hero-content { padding: 32px 16px 48px; }
 }
-
 
 /* ============================================================
    EXPERIENCE V2 — DEMO (toggle + pull-quote)
