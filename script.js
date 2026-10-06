@@ -103,13 +103,52 @@ if ('IntersectionObserver' in window) {
         }
       });
     },
-    { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
+    { threshold: 0.06, rootMargin: '0px 0px -60px 0px' }
   );
 
   document.querySelectorAll('.fade-in').forEach(element => fadeObserver.observe(element));
 } else {
   document.querySelectorAll('.fade-in').forEach(element => element.classList.add('visible'));
 }
+
+/* ============================================================
+   HERO PARALLAX — subtle depth on scroll
+   ============================================================ */
+(function () {
+  const hero = document.querySelector('.hero');
+  const heroPhoto = document.querySelector('.hero-photo');
+  const heroText = document.querySelector('.hero-text');
+  if (!hero || !heroPhoto) return;
+
+  let ticking = false;
+
+  function applyParallax() {
+    const scrollY = window.scrollY;
+    const heroH = hero.offsetHeight;
+
+    if (scrollY <= heroH) {
+      // Photo drifts up slower than scroll (feels deeper)
+      heroPhoto.style.transform = `translateY(${scrollY * 0.16}px)`;
+      // Text drifts very gently — no opacity changes (avoids text disappearing on scroll-back)
+      if (heroText) {
+        heroText.style.transform = `translateY(${scrollY * 0.06}px)`;
+      }
+    } else {
+      // Pinned at bottom of parallax range
+      heroPhoto.style.transform = `translateY(${heroH * 0.16}px)`;
+      if (heroText) heroText.style.transform = `translateY(${heroH * 0.06}px)`;
+    }
+
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(applyParallax);
+      ticking = true;
+    }
+  }, { passive: true });
+}());
 
 document.querySelectorAll('a[href^="#"]').forEach(link => {
   link.addEventListener('click', event => {
