@@ -409,10 +409,20 @@ footer,
   max-width: var(--container);
   margin: 0 auto;
   padding: 60px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.hero-header {
+  margin-bottom: 36px;
+}
+
+.hero-body {
   display: grid;
   grid-template-columns: 1fr 400px;
   gap: 80px;
-  align-items: center;
+  align-items: start;
 }
 
 .hero-eyebrow {
@@ -431,7 +441,7 @@ footer,
   line-height: 0.95;
   letter-spacing: -0.04em;
   color: var(--text);
-  margin-bottom: 36px;
+  margin-bottom: 0;
 }
 
 .hero-statement {
@@ -452,16 +462,55 @@ footer,
   font-weight: 500;
 }
 
-/* Linked org names (e.g. Auton Lab) — dotted underline at rest, solid on hover */
+/* Linked org names */
 .hero-statement .org-link {
   color: var(--sage);
   font-weight: 500;
-  border-bottom: 1.5px dotted var(--sage);
+  text-decoration: none;
+  border-bottom: 1.5px solid transparent;
   padding-bottom: 1px;
-  transition: border-bottom-style 0.2s, color 0.2s;
+  transition: border-color 0.2s;
 }
 .hero-statement .org-link:hover {
-  border-bottom-style: solid;
+  border-color: var(--sage);
+}
+
+/* Logo tooltip for org-logo-link */
+.org-logo-tip {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 14px;
+  background: var(--glass-bg-strong);
+  backdrop-filter: blur(18px) saturate(1.4);
+  -webkit-backdrop-filter: blur(18px) saturate(1.4);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.24);
+  opacity: 0;
+  transform: translateY(6px) scale(0.96);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  white-space: nowrap;
+}
+.org-logo-tip.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+.org-logo-tip img {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  object-fit: contain;
+}
+.org-logo-tip span {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
 }
 
 .hero-tags {
@@ -2170,7 +2219,7 @@ body, #nav {
 /* ==================== RESPONSIVE — 1024px ==================== */
 
 @media (max-width: 1024px) {
-  .hero-content {
+  .hero-body {
     grid-template-columns: 1fr 340px;
     gap: 56px;
   }
@@ -2186,8 +2235,11 @@ body, #nav {
   .container { padding: 0 24px; }
 
   .hero-content {
-    grid-template-columns: 1fr;
     padding: 40px 24px 60px;
+  }
+
+  .hero-body {
+    grid-template-columns: 1fr;
     gap: 40px;
   }
 

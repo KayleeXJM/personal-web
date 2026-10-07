@@ -111,44 +111,7 @@ if ('IntersectionObserver' in window) {
   document.querySelectorAll('.fade-in').forEach(element => element.classList.add('visible'));
 }
 
-/* ============================================================
-   HERO PARALLAX — subtle depth on scroll
-   ============================================================ */
-(function () {
-  const hero = document.querySelector('.hero');
-  const heroPhoto = document.querySelector('.hero-photo');
-  const heroText = document.querySelector('.hero-text');
-  if (!hero || !heroPhoto) return;
-
-  let ticking = false;
-
-  function applyParallax() {
-    const scrollY = window.scrollY;
-    const heroH = hero.offsetHeight;
-
-    if (scrollY <= heroH) {
-      // Photo drifts up slower than scroll (feels deeper)
-      heroPhoto.style.transform = `translateY(${scrollY * 0.16}px)`;
-      // Text drifts very gently — no opacity changes (avoids text disappearing on scroll-back)
-      if (heroText) {
-        heroText.style.transform = `translateY(${scrollY * 0.06}px)`;
-      }
-    } else {
-      // Pinned at bottom of parallax range
-      heroPhoto.style.transform = `translateY(${heroH * 0.16}px)`;
-      if (heroText) heroText.style.transform = `translateY(${heroH * 0.06}px)`;
-    }
-
-    ticking = false;
-  }
-
-  window.addEventListener('scroll', () => {
-    if (!ticking) {
-      requestAnimationFrame(applyParallax);
-      ticking = true;
-    }
-  }, { passive: true });
-}());
+/* Hero parallax disabled — hero uses side-by-side layout, parallax causes text/photo to desync */
 
 document.querySelectorAll('a[href^="#"]').forEach(link => {
   link.addEventListener('click', event => {
@@ -211,6 +174,52 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
       section.dataset.expmode = btn.dataset.mode;
       positionTrack(btn);
     });
+  });
+}());
+
+/* ============================================================
+   ORG LOGO TOOLTIP — shows on hover for .org-logo-link
+   ============================================================ */
+(function () {
+  const tip = document.createElement('div');
+  tip.className = 'org-logo-tip';
+  tip.innerHTML = '<img src="" alt="" /><span></span>';
+  document.body.appendChild(tip);
+
+  const tipImg = tip.querySelector('img');
+  const tipLabel = tip.querySelector('span');
+
+  function showTip(e) {
+    const el = e.currentTarget;
+    tipImg.src = el.dataset.logo || '';
+    tipLabel.textContent = el.dataset.org || el.textContent;
+    tip.classList.add('visible');
+    moveTip(e);
+  }
+
+  function moveTip(e) {
+    const x = e.clientX;
+    const y = e.clientY;
+    const tw = tip.offsetWidth;
+    const th = tip.offsetHeight;
+    const margin = 14;
+    let left = x + margin;
+    let top = y - th / 2;
+    if (left + tw > window.innerWidth - 8) left = x - tw - margin;
+    if (top < 8) top = 8;
+    if (top + th > window.innerHeight - 8) top = window.innerHeight - th - 8;
+    tip.style.left = left + 'px';
+    tip.style.top = top + 'px';
+  }
+
+  function hideTip() {
+    tip.classList.remove('visible');
+  }
+
+  document.querySelectorAll('.org-logo-link').forEach(el => {
+    el.addEventListener('mouseenter', showTip);
+    el.addEventListener('mousemove', moveTip);
+    el.addEventListener('mouseleave', hideTip);
   });
 }());
 
