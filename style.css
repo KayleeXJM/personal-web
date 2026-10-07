@@ -588,6 +588,7 @@ footer,
 }
 
 .hero-photo img {
+  height: auto; /* let aspect-ratio win over the height="533" attribute */
   object-fit: cover;
   display: block;
 }
@@ -1323,7 +1324,7 @@ html[data-theme="light"] .exp-entry-meta {
   color: rgba(126, 184, 212, 0.65);
 }
 html[data-theme="light"] .blog-post-meta {
-  color: rgba(80, 40, 140, 0.55);
+  color: rgba(40, 98, 140, 0.55);
 }
 .blog-post-meta span + span::before {
   content: "·";
@@ -1367,20 +1368,23 @@ html[data-theme="light"] .blog-post-meta {
 }
 
 .blog-post-body .code-line {
-  font-family: "Courier New", monospace;
-  font-size: 0.9rem;
-  background: rgba(126, 184, 212, 0.07);
-  border: 1px solid rgba(126, 184, 212, 0.10);
-  border-radius: 6px;
-  padding: 12px 16px;
-  margin: 12px 0 20px;
+  font-family: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+  font-size: 0.86rem;
+  line-height: 1.65;
+  letter-spacing: -0.01em;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-left: 3px solid var(--sage);
+  border-radius: 4px 8px 8px 4px;
+  padding: 14px 20px;
+  margin: 16px 0 24px;
   color: var(--text);
   display: block;
 }
 
 .blog-post-body .arrow {
-  color: rgba(126, 184, 212, 0.6);
-  margin: 0 4px;
+  color: var(--sage);
+  margin: 0 6px;
 }
 
 /* References */
@@ -1444,14 +1448,19 @@ html[data-theme="light"] body.blog-body {
 
 /* Light theme overrides for blog */
 html[data-theme="light"] .blog-card {
-  border-color: rgba(100, 60, 180, 0.12);
+  border-color: rgba(60, 130, 180, 0.12);
 }
 html[data-theme="light"] .blog-card:hover {
-  border-color: rgba(100, 60, 180, 0.25);
+  border-color: rgba(60, 130, 180, 0.25);
 }
 html[data-theme="light"] .blog-post-body .code-line {
-  background: rgba(100, 60, 180, 0.05);
-  border-color: rgba(100, 60, 180, 0.12);
+  background: #F1EDE6;               /* warm stone — sits on the #FAF8F5 page */
+  border-color: #E4DED4;
+  border-left-color: #1A4E7A;        /* deep navy accent */
+  color: #1F2933;
+}
+html[data-theme="light"] .blog-post-body .arrow {
+  color: #1A4E7A;
 }
 
 @media (max-width: 640px) {
@@ -1525,12 +1534,12 @@ html[data-theme="light"] .blog-post-body .code-line {
 
 /* Placeholder colors — dark, moody; match the site palette */
 .life-panel-img--travel {
-  background: linear-gradient(150deg, rgba(30,14,68,1) 0%, rgba(10,5,28,1) 100%);
+  background: linear-gradient(150deg, rgba(14,45,68,1) 0%, rgba(5,18,28,1) 100%);
 }
 .life-panel-img--hobbies {
-  background: linear-gradient(150deg, rgba(46,20,86,1) 0%, rgba(18,8,46,1) 100%);
+  background: linear-gradient(150deg, rgba(20,59,86,1) 0%, rgba(8,30,46,1) 100%);
 }
-.life-panel-img--photography { background: rgba(20, 10, 44, 0.95); }
+.life-panel-img--photography { background: rgba(10, 30, 44, 0.95); }
 
 /* Faint dot grid texture on placeholders (until real images are added) */
 .life-panel-img--travel::after,
@@ -1538,7 +1547,7 @@ html[data-theme="light"] .blog-post-body .code-line {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(circle, rgba(201,167,255,0.08) 1px, transparent 1px);
+  background-image: radial-gradient(circle, rgba(167,218,255,0.08) 1px, transparent 1px);
   background-size: 22px 22px;
   pointer-events: none;
 }
@@ -1616,13 +1625,13 @@ html[data-theme="light"] .blog-post-body .code-line {
 .life-label--cards       { background: #D4EBE0; }
 .life-label--food        { background: #FDE8CC; }
 .life-label--instruments { background: #E0E6F0; }
-.life-label--arts        { background: #E2D8F5; }
+.life-label--arts        { background: #D8E9F5; }
 
 .life-icon-row {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: rgba(20, 10, 50, 0.68);
+  color: rgba(10, 33, 50, 0.68);
 }
 
 .life-icon-row svg {
@@ -1635,7 +1644,7 @@ html[data-theme="light"] .blog-post-body .code-line {
   font-size: 1rem;
   font-weight: 400;
   letter-spacing: 0.01em;
-  color: rgba(20, 10, 50, 0.75);
+  color: rgba(10, 33, 50, 0.75);
 }
 
 /* ---- Right body panel ---- */
@@ -1770,8 +1779,8 @@ footer {
 }
 
 #nav {
-  background: linear-gradient(135deg, rgba(23, 13, 40, 0.96), rgba(5, 3, 12, 0.98));
-  border-bottom-color: rgba(225, 205, 255, 0.16);
+  background: linear-gradient(135deg, rgba(13, 29, 40, 0.96), rgba(3, 8, 12, 0.98));
+  border-bottom-color: rgba(205, 234, 255, 0.16);
   -webkit-backdrop-filter: blur(10px) saturate(1.12);
   backdrop-filter: blur(10px) saturate(1.12);
 }
@@ -1871,8 +1880,8 @@ footer,
 .life-panel-img--travel,
 .life-panel-img--hobbies {
   background:
-    radial-gradient(circle at var(--cursor-x) var(--cursor-y), rgba(211, 178, 255, 0.26), transparent 0 22%),
-    linear-gradient(135deg, rgba(89, 55, 156, 0.68), rgba(18, 9, 31, 0.74));
+    radial-gradient(circle at var(--cursor-x) var(--cursor-y), rgba(178, 223, 255, 0.26), transparent 0 22%),
+    linear-gradient(135deg, rgba(55, 114, 156, 0.68), rgba(9, 22, 31, 0.74));
 }
 
 footer {
@@ -2032,7 +2041,7 @@ html[data-theme="light"] #world-wrap {
   box-shadow: var(--glass-shadow);
 }
 
-/* ── Experience cards — transparent + purple border ── */
+/* ── Experience cards — transparent + blue border ── */
 html[data-theme="light"] .exp-v2-card {
   background: transparent;
   border-color: rgba(26, 98, 160, 0.32);
@@ -2041,93 +2050,93 @@ html[data-theme="light"] .exp-v2-card:hover {
   border-color: rgba(26, 98, 160, 0.60);
 }
 
-/* ── Timeline hardcoded colours — deep rich purple ── */
-/* Base purple: rgb(62, 22, 110) — saturated, elegant on light bg */
+/* ── Timeline hardcoded colours — deep blue ── */
+/* Base blue: rgb(22, 73, 110) — saturated, elegant on light bg */
 
 html[data-theme="light"] .tl-dot {
-  background: #f0eafa;
-  border-color: rgba(62, 22, 110, 0.80);
-  box-shadow: 0 0 8px rgba(62, 22, 110, 0.18);
+  background: #eaf3fa;
+  border-color: rgba(22, 73, 110, 0.80);
+  box-shadow: 0 0 8px rgba(22, 73, 110, 0.18);
 }
 
 html[data-theme="light"] .tl-spine-line::after {
   background: linear-gradient(
     to bottom,
-    rgba(62, 22, 110, 0.04),
-    rgba(62, 22, 110, 0.30) 10%,
-    rgba(62, 22, 110, 0.30) 90%,
-    rgba(62, 22, 110, 0.04)
+    rgba(22, 73, 110, 0.04),
+    rgba(22, 73, 110, 0.30) 10%,
+    rgba(22, 73, 110, 0.30) 90%,
+    rgba(22, 73, 110, 0.04)
   );
 }
 
 html[data-theme="light"] .tl-col-label {
-  color: rgba(62, 22, 110, 0.72);
+  color: rgba(22, 73, 110, 0.72);
 }
 
 html[data-theme="light"] .tl-year {
-  color: rgba(62, 22, 110, 0.75);
+  color: rgba(22, 73, 110, 0.75);
 }
 
 html[data-theme="light"] .tl-edu-card {
-  border-left-color: rgba(62, 22, 110, 0.52);
+  border-left-color: rgba(22, 73, 110, 0.52);
 }
 html[data-theme="light"] .tl-edu-cell--sticky::before {
-  background: rgba(62, 22, 110, 0.52);
+  background: rgba(22, 73, 110, 0.52);
 }
 html[data-theme="light"] .tl-edu-period {
-  color: rgba(62, 22, 110, 0.75);
+  color: rgba(22, 73, 110, 0.75);
 }
 html[data-theme="light"] .tl-edu-note {
-  color: rgba(62, 22, 110, 0.60);
+  color: rgba(22, 73, 110, 0.60);
 }
 html[data-theme="light"] .tl-edu-detail {
-  color: rgba(50, 18, 88, 0.62);
+  color: rgba(18, 59, 88, 0.62);
 }
 
 html[data-theme="light"] .tl-plain-text {
-  color: rgba(50, 18, 88, 0.72);
+  color: rgba(18, 59, 88, 0.72);
 }
 html[data-theme="light"] .tl-plain-dim {
-  color: rgba(50, 18, 88, 0.42);
+  color: rgba(18, 59, 88, 0.42);
 }
 html[data-theme="light"] .tl-hl {
-  color: rgba(62, 22, 110, 0.92);
+  color: rgba(22, 73, 110, 0.92);
 }
 html[data-theme="light"] .tl-turning-point {
-  color: rgba(62, 22, 110, 0.82);
+  color: rgba(22, 73, 110, 0.82);
 }
 
 html[data-theme="light"] .tl-era-gap::after {
-  color: rgba(62, 22, 110, 0.42);
+  color: rgba(22, 73, 110, 0.42);
 }
 
 html[data-theme="light"] .tl-toggle-invite {
-  color: rgba(50, 18, 88, 0.58);
+  color: rgba(18, 59, 88, 0.58);
 }
 html[data-theme="light"] .tl-toggle-invite em {
-  color: rgba(62, 22, 110, 0.85);
+  color: rgba(22, 73, 110, 0.85);
 }
 
 html[data-theme="light"] .exp-v2-toggle {
-  background: rgba(62, 22, 110, 0.07);
-  border-color: rgba(62, 22, 110, 0.28);
+  background: rgba(22, 73, 110, 0.07);
+  border-color: rgba(22, 73, 110, 0.28);
 }
 html[data-theme="light"] .exp-v2-toggle-track {
-  background: rgba(62, 22, 110, 0.20);
+  background: rgba(22, 73, 110, 0.20);
 }
 
 html[data-theme="light"] .exp-v2-quote {
-  color: rgba(62, 22, 110, 0.82);
-  border-left-color: rgba(62, 22, 110, 0.45);
+  color: rgba(22, 73, 110, 0.82);
+  border-left-color: rgba(22, 73, 110, 0.45);
 }
 html[data-theme="light"] .tl-card-date {
-  color: rgba(62, 22, 110, 0.72);
+  color: rgba(22, 73, 110, 0.72);
 }
 
 /* Project cards */
 html[data-theme="light"] .project-card {
-  border-color: rgba(100, 62, 172, 0.14);
-  border-left-color: rgba(100, 62, 172, 0.32);
+  border-color: rgba(62, 126, 172, 0.14);
+  border-left-color: rgba(62, 126, 172, 0.32);
 }
 html[data-theme="light"] .project-card:hover {
   box-shadow: 0 12px 40px rgba(20, 55, 110, 0.13),
@@ -2152,18 +2161,18 @@ html[data-theme="light"] .life-panel:hover {
               0 0 0 1px rgba(26, 98, 160, 0.18);
 }
 html[data-theme="light"] .life-panel-img--travel {
-  background: linear-gradient(150deg, rgba(200, 184, 240, 0.70) 0%, rgba(178, 160, 225, 0.55) 100%);
+  background: linear-gradient(150deg, rgba(184, 217, 240, 0.70) 0%, rgba(160, 198, 225, 0.55) 100%);
 }
 html[data-theme="light"] .life-panel-img--hobbies {
-  background: linear-gradient(150deg, rgba(215, 200, 248, 0.70) 0%, rgba(194, 178, 234, 0.55) 100%);
+  background: linear-gradient(150deg, rgba(200, 228, 248, 0.70) 0%, rgba(178, 211, 234, 0.55) 100%);
 }
 html[data-theme="light"] .life-panel-img--travel::after,
 html[data-theme="light"] .life-panel-img--hobbies::after {
   background-image: radial-gradient(circle, rgba(26, 98, 160, 0.12) 1px, transparent 1px);
 }
 html[data-theme="light"] .life-panel-info {
-  background: rgba(232, 224, 252, 0.80);
-  border-top-color: rgba(128, 90, 196, 0.15);
+  background: rgba(224, 240, 252, 0.80);
+  border-top-color: rgba(90, 152, 196, 0.15);
 }
 
 /* Footer in light */
@@ -2288,8 +2297,12 @@ body, #nav {
 @media (max-width: 640px) {
   .hero-name { font-size: 52px; }
 
+  /* On phones, show a smaller photo centered above the intro text */
   .hero-photo {
-    display: none; /* On small screens, photo can be added separately */
+    order: -1;
+    width: 100%;
+    max-width: 240px;
+    margin: 0 auto;
   }
 
   /* Map panel becomes a bottom sheet on mobile */
@@ -2586,7 +2599,7 @@ body, #nav {
   width: 11px;
   height: 11px;
   border-radius: 50%;
-  background: #1a0a2e;
+  background: #0a1f2e;
   border: 2px solid rgba(74, 148, 186, 0.9);
   box-shadow: 0 0 10px rgba(74, 148, 186, 0.4);
   flex-shrink: 0;
@@ -2681,7 +2694,7 @@ body, #nav {
 .tl-edu-detail {
   font-size: 12.5px;
   line-height: 1.65;
-  color: rgba(246, 240, 255, 0.45);
+  color: rgba(240, 249, 255, 0.45);
   margin: 0;
 }
 
@@ -2742,14 +2755,14 @@ body, #nav {
 .tl-plain-text {
   font-size: 13px;
   line-height: 1.8;
-  color: rgba(246, 240, 255, 0.4);
+  color: rgba(240, 249, 255, 0.4);
   margin: 0;
   font-style: italic;
 }
 
 /* Dimmed items (non-tech roles in exploration list) */
 .tl-plain-dim {
-  color: rgba(246, 240, 255, 0.28);
+  color: rgba(240, 249, 255, 0.28);
 }
 
 /* Highlighted items (tech / ML-related) */
