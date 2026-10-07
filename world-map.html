@@ -47,6 +47,25 @@
       height: 100%;
     }
 
+    /* Water color — replaces tile background */
+    .leaflet-container {
+      background: #dde6ec !important;
+    }
+    html[data-theme="dark"] .leaflet-container {
+      background: #0b1117 !important;
+    }
+
+    /* Land gets a faint lift off the sea; visited regions a soft blue glow */
+    #map .leaflet-land-pane svg {
+      filter: drop-shadow(0 1px 2px rgba(60, 50, 40, 0.10));
+    }
+    html[data-theme="dark"] #map .leaflet-land-pane svg {
+      filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.45));
+    }
+    #map .leaflet-overlay-pane svg {
+      filter: drop-shadow(0 0 6px rgba(74, 148, 186, 0.35));
+    }
+
     /* Strip Leaflet default icon background */
     .leaflet-div-icon {
       background: transparent !important;
@@ -56,7 +75,7 @@
     .leaflet-control-attribution {
       font-size: 10px;
       opacity: 0.55;
-      background: rgba(30, 18, 52, 0.48) !important;
+      background: var(--glass-bg) !important;
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
       border-radius: 6px !important;
@@ -70,14 +89,18 @@
     }
 
     .leaflet-control-zoom a {
-      background: rgba(30, 18, 52, 0.78) !important;
-      color: #eadfff !important;
+      background: linear-gradient(135deg, var(--glass-bg-strong), var(--glass-bg-soft)) !important;
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+      color: var(--text) !important;
       border: none !important;
       width: 32px !important;
       height: 32px !important;
       line-height: 32px !important;
       font-size: 17px !important;
     }
+
+    .leaflet-control-zoom a:hover { color: var(--sage) !important; }
 
     /* ── Map pins ── */
     .map-pin-wrapper {
@@ -88,7 +111,7 @@
     }
 
     .map-pin-wrapper:hover svg path {
-      fill: #9d7ed4;
+      fill: var(--sage);
     }
 
     .map-pin-wrapper.dimmed {
@@ -103,7 +126,7 @@
       width: 36px;
       height: 36px;
       border-radius: 50%;
-      background: rgba(143, 115, 217, 0.22);
+      background: rgba(74, 148, 186, 0.24);
       animation: ringPulse 2.6s ease-out infinite;
       pointer-events: none;
     }
@@ -153,14 +176,14 @@
       flex-shrink: 0;
     }
 
-    .timeline-pill:hover  { color: rgba(175,148,235,0.9); background: rgba(143,115,217,0.10); }
-    .timeline-pill.active { background: rgba(201, 167, 255, 0.28); color: #fff; }
+    .timeline-pill:hover  { color: var(--sage); background: var(--sage-faint); }
+    .timeline-pill.active { background: rgba(74, 148, 186, 0.30); color: var(--text); }
 
     /* ── Location count badge ── */
     .location-count {
       position: absolute;
       top: 16px;
-      right: 16px;
+      left: 16px;
       z-index: 1000;
       background: linear-gradient(135deg, var(--glass-bg-strong), var(--glass-bg-soft));
       backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
@@ -174,7 +197,7 @@
       box-shadow: var(--glass-shadow), inset 0 1px 0 var(--glass-highlight);
     }
 
-    .location-count strong { color: rgba(201,167,255,0.92); font-weight: 600; }
+    .location-count strong { color: var(--sage); font-weight: 600; }
 
     /* ── Empty state ── */
     .empty-msg {
@@ -250,37 +273,33 @@
       align-items: center;
       justify-content: center;
       font-size: 36px;
-      background: linear-gradient(135deg, #2a1a52 0%, #1a0e3a 100%);
+      background: linear-gradient(135deg, rgba(74, 148, 186, 0.32) 0%, rgba(43, 106, 144, 0.14) 100%);
     }
     .hover-body { padding: 13px 15px 15px; }
     .hover-location {
       font-size: 14.5px;
       font-weight: 600;
       font-family: 'Plus Jakarta Sans', sans-serif;
-      color: #1a1a1a;
+      color: var(--text);
       margin-bottom: 3px;
       line-height: 1.25;
     }
     .hover-date {
       font-size: 10px;
-      color: rgba(175,148,235,0.88);
+      color: var(--sage);
       font-weight: 600;
       font-family: 'Plus Jakarta Sans', sans-serif;
       text-transform: uppercase;
       letter-spacing: 1px;
     }
-    .hover-divider { height: 1px; background: #f0f0f0; margin: 9px 0; }
+    .hover-divider { height: 1px; background: var(--border); margin: 9px 0; }
     .hover-desc {
       font-size: 12px;
-      color: #777;
+      color: var(--text-muted);
       font-family: 'Plus Jakarta Sans', sans-serif;
       line-height: 1.6;
     }
 
-    /* Glow on active region SVG paths */
-    .region-glow {
-      filter: drop-shadow(0 0 6px rgba(143, 115, 217, 0.58));
-    }
 
     /* ── Responsive ── */
     @media (max-width: 640px) {
@@ -290,8 +309,7 @@
       }
       .map-timeline { bottom: 14px; padding: 4px 6px; }
       .timeline-pill { padding: 5px 11px; font-size: 11px; }
-      .location-count { top: 12px; right: 12px; }
-      .leaflet-top.leaflet-right { top: 48px !important; }
+      .location-count { top: 12px; left: 12px; }
     }
 
     @media (max-width: 400px) {
@@ -334,7 +352,7 @@
       <a href="index.html#life" class="subpage-back">&#8592; Life</a>
       <div class="section-label" style="margin-bottom: 0;">
         <h1 class="section-title">Places I've been</h1>
-        <p class="section-subtitle">26 cities across 4 continents — and counting.</p>
+        <p class="section-subtitle">27 cities across 4 continents — and counting.</p>
       </div>
     </div>
   </div>
@@ -348,7 +366,7 @@
       <div id="map"></div>
 
       <div class="location-count" id="locationCount">
-        <strong>26</strong> places
+        <strong>27</strong> places
       </div>
 
       <div class="map-timeline">
@@ -603,6 +621,13 @@ const locations = [
     date: 'March 2026', description: '',
     photo: null, emoji: '🏛️',
     countryId: null, stateIds: [11]
+  },
+  {
+    id: 'new-mexico', name: 'New Mexico',
+    coords: [35.0844, -106.6504], periods: ['2026'],
+    date: 'October 2026', description: '',
+    photo: null, emoji: '🌵',
+    countryId: null, stateIds: [35]
   }
 ];
 
@@ -642,18 +667,7 @@ document.addEventListener('click', e => {
   }
 });
 
-L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Canvas/MapServer/tile/{z}/{y}/{x}', {
-  attribution: 'Tiles © Esri',
-  maxZoom: 16,
-  noWrap: true
-}).addTo(map);
-
-L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}', {
-  attribution: '',
-  maxZoom: 16,
-  noWrap: true,
-  pane: 'shadowPane'
-}).addTo(map);
+// No tile layer — world is rendered directly from topojson below
 
 L.control.zoom({ position: 'topright' }).addTo(map);
 
@@ -676,25 +690,34 @@ function computeActiveRegions(period) {
   return { countries, states };
 }
 
-function styleCountry(feature) {
-  const id = parseInt(feature.id, 10);
-  const on = activeCountryIds.has(id);
-  return {
-    fillColor: on ? '#8B6BD4' : 'transparent', fillOpacity: on ? 0.30 : 0,
-    color: on ? '#6040B0' : 'transparent', weight: on ? 2 : 0,
-    opacity: on ? 0.80 : 0, className: on ? 'region-glow' : '', interactive: false
-  };
-}
+// Map palette — sea, land and visited-region colors per theme.
+// Visited regions use a deeper, near-solid blue so they read clearly
+// against the paler, desaturated sea.
+const MAP_PALETTE = {
+  light: {
+    land: '#f6f2ec', landStroke: '#d6cec2',
+    visit: '#5B9BC4', visitOpacity: 0.62, visitStroke: '#2B6A90',
+    pin: '#1F5F8B'
+  },
+  dark: {
+    land: '#221f1b', landStroke: '#36302a',
+    visit: '#4A94BA', visitOpacity: 0.55, visitStroke: '#9FD0E8',
+    pin: '#6FB3D6'
+  }
+};
+const palette = () =>
+  MAP_PALETTE[document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark'];
 
-function styleState(feature) {
-  const id = parseInt(feature.id, 10);
-  const on = activeStateIds.has(id);
+function regionStyle(on) {
+  const c = palette();
   return {
-    fillColor: on ? '#8B6BD4' : 'transparent', fillOpacity: on ? 0.32 : 0,
-    color: on ? '#6040B0' : 'transparent', weight: on ? 2 : 0,
-    opacity: on ? 0.80 : 0, className: on ? 'region-glow' : '', interactive: false
+    fillColor: c.visit, fillOpacity: on ? c.visitOpacity : 0,
+    color: c.visitStroke, weight: on ? 1.2 : 0,
+    opacity: on ? 0.9 : 0, interactive: false
   };
 }
+function styleCountry(feature) { return regionStyle(activeCountryIds.has(parseInt(feature.id, 10))); }
+function styleState(feature)   { return regionStyle(activeStateIds.has(parseInt(feature.id, 10))); }
 
 let countryLayer = null;
 let stateLayer   = null;
@@ -711,7 +734,7 @@ function makePinSVG(color, dotColor) {
 }
 
 function makeIcon(dimmed) {
-  const fill = dimmed ? '#b0b0b0' : '#9B7FE0';
+  const fill = dimmed ? '#b0b0b0' : palette().pin;
   const dot  = dimmed ? '#d8d8d8' : 'white';
   return L.divIcon({
     className: '',
@@ -829,28 +852,84 @@ function setActivePeriod(period) {
 // ═══════════════════════════════════════════════════════
 // LOAD ATLAS DATA
 // ═══════════════════════════════════════════════════════
-Promise.all([
-  fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json').then(r => r.json()),
-  fetch('https://cdn.jsdelivr.net/npm/us-atlas@3/states-110m.json').then(r => r.json())
+// Polygons that cross the 180° line (Russia, Fiji…) make Leaflet draw
+// stripes across the whole map. Unwrap their longitudes so each ring is
+// continuous, and drop Antarctica (it only renders as a smear in Mercator).
+function fixAntimeridian(geo) {
+  const unwrapRing = ring => {
+    let prev = null;
+    return ring.map(([lon, lat]) => {
+      if (prev !== null) {
+        while (lon - prev > 180)  lon -= 360;
+        while (lon - prev < -180) lon += 360;
+      }
+      prev = lon;
+      return [lon, lat];
+    });
+  };
+  geo.features = geo.features.filter(f => parseInt(f.id, 10) !== 10 && f.geometry);
+  geo.features.forEach(f => {
+    const g = f.geometry;
+    if (g.type === 'Polygon')      g.coordinates = g.coordinates.map(unwrapRing);
+    if (g.type === 'MultiPolygon') g.coordinates = g.coordinates.map(poly => poly.map(unwrapRing));
+  });
+  return geo;
+}
+
+const fetchJSON = url => fetch(url).then(r => {
+  if (!r.ok) throw new Error(`${r.status} ${url}`);
+  return r.json();
+});
+
+// Load world + US data independently so one failure can't blank the whole map
+Promise.allSettled([
+  fetchJSON('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json'),
+  fetchJSON('https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json')
 ])
-.then(([worldTopo, usTopo]) => {
-  const worldGeo = topojson.feature(worldTopo, worldTopo.objects.countries);
-  const usGeo    = topojson.feature(usTopo,    usTopo.objects.states);
-  countryLayer = L.geoJSON(worldGeo, { style: styleCountry, interactive: false }).addTo(map);
-  stateLayer   = L.geoJSON(usGeo,    { style: styleState,   interactive: false }).addTo(map);
+.then(([worldRes, usRes]) => {
+  if (worldRes.status === 'fulfilled') {
+    const worldTopo = worldRes.value;
+    const worldGeo  = fixAntimeridian(topojson.feature(worldTopo, worldTopo.objects.countries));
+
+    // Base world layer — draws all land without tiles; restyles on theme toggle
+    const landStyle = () => {
+      const c = palette();
+      return {
+        fillColor: c.land, fillOpacity: 1,
+        color: c.landStroke, weight: 0.6, opacity: 1,
+        interactive: false
+      };
+    };
+    map.createPane('land').style.zIndex = 350;   // below regions (overlayPane = 400)
+    const landLayer = L.geoJSON(worldGeo, { style: landStyle, pane: 'land' }).addTo(map);
+    new MutationObserver(() => {
+      landLayer.setStyle(landStyle);
+      if (countryLayer) countryLayer.setStyle(styleCountry);
+      if (stateLayer)   stateLayer.setStyle(styleState);
+      setActivePeriod(currentPeriod);   // re-color pins for the new theme
+    })
+      .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
+    countryLayer = L.geoJSON(worldGeo, { style: styleCountry, interactive: false }).addTo(map);
+  } else {
+    console.warn('World atlas failed to load:', worldRes.reason);
+  }
+
+  if (usRes.status === 'fulfilled') {
+    const usTopo = usRes.value;
+    const usGeo  = topojson.feature(usTopo, usTopo.objects.states);
+    stateLayer = L.geoJSON(usGeo, { style: styleState, interactive: false }).addTo(map);
+  } else {
+    console.warn('US atlas failed to load:', usRes.reason);
+  }
+
   buildMarkers();
   emptyMsg.classList.remove('visible');
   const { countries, states } = computeActiveRegions('all');
   activeCountryIds = countries;
   activeStateIds   = states;
-  countryLayer.setStyle(styleCountry);
-  stateLayer.setStyle(styleState);
-  map.setView([30, 10], 2);
-})
-.catch(err => {
-  console.warn('Atlas load failed, showing pins only:', err);
-  buildMarkers();
-  emptyMsg.classList.remove('visible');
+  if (countryLayer) countryLayer.setStyle(styleCountry);
+  if (stateLayer)   stateLayer.setStyle(styleState);
   map.setView([30, 10], 2);
 });
 
